@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Pixelatte.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Pixelatte.UI"
+    Title="Pixelatte"
     mc:Ignorable="d">
 
     <Grid>
@@ -18,20 +18,64 @@
             <StackPanel Margin="10" />
         </ScrollViewer>
         <ScrollViewer Grid.Column="1">
-            <StackPanel
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Orientation="Vertical">
-                <Button Click="LoadImage_Click">Load image</Button>
+            <Grid Padding="10" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Image x:Name="imgContainer" Stretch="Uniform" />
+                    <Button Click="LoadImage_Click" Style="{ThemeResource AccentButtonStyle}">Load image</Button>
+                    <TextBox
+                        x:Name="filePath"
+                        Grid.Column="1"
+                        IsReadOnly="True"
+                        PlaceholderText="Choose an image" />
                 </Grid>
-            </StackPanel>
+                <Grid Grid.Row="1" RowSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="6*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
+                        BorderThickness="1"
+                        CornerRadius="1">
+                        <Image x:Name="imgContainer" Stretch="Uniform" />
+                    </StackPanel>
+                    <ItemsRepeater
+                        x:Name="properties"
+                        Grid.Row="1"
+                        Grid.Column="1">
+                        <ItemsRepeater.Layout>
+                            <LinedFlowLayout ItemsJustification="Center" MinItemSpacing="5" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Border Background="{ThemeResource AccentAcrylicBackgroundFillColorBaseBrush}" CornerRadius="5">
+                                    <TextBlock
+                                        Padding="10,3"
+                                        HorizontalAlignment="Center"
+                                        Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
+                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                        Text="{x:Bind}" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </Grid>
+            </Grid>
         </ScrollViewer>
     </Grid>
 </Window>

@@ -1,6 +1,8 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
@@ -20,6 +22,7 @@ namespace Pixelatte.UI
     public sealed partial class MainWindow : Window
     {
         HttpClient httpClient = new HttpClient();
+        List<string> Tags = new List<string>();
 
         public MainWindow()
         {
@@ -43,8 +46,17 @@ namespace Pixelatte.UI
             if (file != null)
             {
                 // Do something with the file.
+                filePath.Text = file.Path;
                 BitmapImage bitmapImage = new BitmapImage();
                 bitmapImage.UriSource = new Uri(file.Path);
+                using (System.Drawing.Image image = System.Drawing.Image.FromFile(file.Path))
+                {
+                    Tags.Add($"{image.Width.ToString()}x{image.Height.ToString()}");
+                    Tags.Add(Path.GetExtension(file.Path));
+                    properties.ItemsSource = Tags;
+                    imgContainer.MaxWidth = image.Width;
+                    imgContainer.MaxHeight = image.Height;
+                }
                 imgContainer.Source = bitmapImage;
             }
         }
