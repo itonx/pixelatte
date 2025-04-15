@@ -1,0 +1,76 @@
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media.Imaging;
+using System;
+using System.Net.Http;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
+using WinRT.Interop;
+
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
+
+namespace Pixelatte.UI
+{
+    /// <summary>
+    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class MainWindow : Window
+    {
+        HttpClient httpClient = new HttpClient();
+
+        public MainWindow()
+        {
+            this.InitializeComponent();
+            httpClient.BaseAddress = new Uri("http://127.0.0.1:8000/");
+        }
+
+        private async void LoadImage_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker fileOpenPicker = new()
+            {
+                ViewMode = PickerViewMode.Thumbnail,
+                FileTypeFilter = { ".jpg", ".jpeg", ".png", ".gif" },
+            };
+
+            nint windowHandle = WindowNative.GetWindowHandle(this);
+            InitializeWithWindow.Initialize(fileOpenPicker, windowHandle);
+
+            StorageFile file = await fileOpenPicker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                // Do something with the file.
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.UriSource = new Uri(file.Path);
+                imgContainer.Source = bitmapImage;
+            }
+        }
+
+        private async Task LoadImages()
+        {
+
+        }
+
+        private async Task<byte[]> GetPixelBytes(string endpoint)
+        {
+            var response = await httpClient.GetAsync(endpoint);
+            return await response.Content.ReadAsByteArrayAsync();
+        }
+
+        private async Task<BitmapImage> GetBitmapImage(string endpoint)
+        {
+            byte[] pixelBytes = await GetPixelBytes(endpoint);
+            var bitmap = new BitmapImage();
+            using (var stream = new InMemoryRandomAccessStream())
+            {
+                await stream.WriteAsync(pixelBytes.AsBuffer());
+                stream.Seek(0);
+                await bitmap.SetSourceAsync(stream);
+            }
+            return bitmap;
+        }
+    }
+}

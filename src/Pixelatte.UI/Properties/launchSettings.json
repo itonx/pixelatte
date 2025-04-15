@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Pixelatte.UI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Pixelatte.UI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
