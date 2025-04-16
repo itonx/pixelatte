@@ -29,6 +29,6 @@ namespace Pixelatte.UI
             m_window.Activate();
         }
 
-        private Window? m_window;
+        internal static Window? m_window;
     }
 }

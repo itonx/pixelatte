@@ -4,9 +4,17 @@ import cv2 as cv
 
 app = FastAPI()
 
+@app.get('/open')
+def get_img(img_path, img_type = 'color'):
+    img, file_extension, width, height = read_img(img_path, img_type)
+    _, encoded = cv.imencode(file_extension, img)
+    file_extension  = file_extension.replace('.', '')
+    headers = {'width': str(width), 'height': str(height)}
+    return Response(content=encoded.tobytes(), media_type=f'image/{file_extension}', headers=headers)
+
 @app.get('/image')
 def apply(img_path, operation, value, img_type = 'color'):
-    img, file_extension = read_img(img_path, img_type)
+    img, file_extension, width, height = read_img(img_path, img_type)
 
     if(int(value) == 0):
         _, encoded = cv.imencode(file_extension, img) 
@@ -19,8 +27,8 @@ def apply(img_path, operation, value, img_type = 'color'):
     return Response(content=encoded.tobytes(), media_type=f'image/{file_extension}')
 
 @app.get('/grayscale')
-def apply(img_path):
-    img, file_extension = read_img(img_path, 'gray')
+def grayscale(img_path):
+    img, file_extension, width, height = read_img(img_path, 'gray')
     _, encoded = cv.imencode(file_extension, img)
     file_extension  = file_extension.replace('.', '')
     return Response(content=encoded.tobytes(), media_type=f'image/{file_extension}')

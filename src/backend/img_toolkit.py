@@ -5,16 +5,15 @@ from os import path
 
 def read_img(img_path, img_type = None):
     if img_type == 'color':
-        type = None
+        type = cv.IMREAD_COLOR_BGR
     elif img_type == 'gray':
         type = cv.IMREAD_GRAYSCALE
 
     _, file_extension = path.splitext(img_path) 
     
-    if(img_type):
-        return cv.imread(img_path, type), file_extension
-    
-    return cv.imread(img_path), file_extension
+    img_result = cv.imread(img_path, type)
+    print(img_result.shape)
+    return img_result, file_extension, img_result.shape[1], img_result.shape[0]
 
 def img_add(img, value):
     return np.clip(img.astype(np.int32) + value, 0, 255).astype(np.uint8)
@@ -23,8 +22,6 @@ def img_substract(img, value):
     return np.clip(img.astype(np.int32) - value, 0, 255).astype(np.uint8)
 
 def img_multiply(img, value):
-    print(img)
-    print(np.clip(img.astype(np.uint32) * value, 0, 255).astype(np.uint8))
     return np.clip(img.astype(np.uint32) * value, 0, 255).astype(np.uint8)
 
 def img_divide(img, value):
