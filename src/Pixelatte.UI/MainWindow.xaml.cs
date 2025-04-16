@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,9 @@ namespace Pixelatte.UI
         public MainWindow()
         {
             this.InitializeComponent();
-            httpClient.BaseAddress = new Uri("http://127.0.0.1:8000/");
+            httpClient.BaseAddress = new Uri("http://127.0.0.1:8000");
+            var iconPath = System.IO.Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets", "icon.ico");
+            this.AppWindow.SetIcon(iconPath);
         }
 
         private async void LoadImage_Click(object sender, RoutedEventArgs e)
@@ -54,16 +57,13 @@ namespace Pixelatte.UI
                     Tags.Add($"{image.Width.ToString()}x{image.Height.ToString()}");
                     Tags.Add(Path.GetExtension(file.Path));
                     properties.ItemsSource = Tags;
-                    imgContainer.MaxWidth = image.Width;
-                    imgContainer.MaxHeight = image.Height;
+                    //imgContainer.MaxWidth = image.Width;
+                    //imgContainer.MaxHeight = image.Height;
                 }
-                imgContainer.Source = bitmapImage;
+                //imgContainer.Source = bitmapImage;
+                var grayImg = await GetBitmapImage($"image?img_path={filePath.Text}&operation=add&value=0");
+                imgContainer.Source = grayImg;
             }
-        }
-
-        private async Task LoadImages()
-        {
-
         }
 
         private async Task<byte[]> GetPixelBytes(string endpoint)
@@ -83,6 +83,37 @@ namespace Pixelatte.UI
                 await bitmap.SetSourceAsync(stream);
             }
             return bitmap;
+        }
+
+        private async void GrayscaleToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            await ProcessToggleOperation(sender as ToggleSwitch, imgContainerGrayscale, $"grayscale?img_path={filePath.Text}");
+        }
+
+        private async void BasicPixelOperationsToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            await ProcessToggleOperation(sender as ToggleSwitch, imgContainerBasicPixelOperations, $"image?img_path={filePath.Text}&operation={operations.SelectedValue}&value={variation.Value}");
+        }
+
+        private async Task ProcessToggleOperation(ToggleSwitch toggle, Image imageContainer, string endpoint)
+        {
+            if (toggle == null || imageContainer == null) return;
+
+            if (toggle.IsOn)
+            {
+                var grayImg = await GetBitmapImage($"/{endpoint}");
+                imageContainer.Source = grayImg;
+                imageContainer.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                imageContainer.Source = null;
+            }
+        }
+
+        private async void variation_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            await ProcessToggleOperation(operationsToggleSwitch, imgContainerBasicPixelOperations, $"image?img_path={filePath.Text}&operation={operations.SelectedValue}&value={variation.Value}");
         }
     }
 }
