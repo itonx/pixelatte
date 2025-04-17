@@ -43,6 +43,12 @@ namespace Pixelatte.UI.ViewModels
         private bool _applySaltAndPepperNoise;
         [ObservableProperty]
         private BitmapImage _saltAndPepperNoiseImage;
+        [ObservableProperty]
+        private bool _showOriginalInGrayscale;
+        [ObservableProperty]
+        private bool _showOriginalInBasicPixelOperation;
+        [ObservableProperty]
+        private bool _showOriginalInSaltAndPepperNoise;
 
         public MainWindowViewModel()
         {
