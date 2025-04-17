@@ -35,6 +35,8 @@ namespace Pixelatte.UI.ViewModels
         private string _selectedOperation;
         [ObservableProperty]
         private int _operationValue;
+        [ObservableProperty]
+        private bool _isLoading;
 
         public MainWindowViewModel()
         {
@@ -46,17 +48,29 @@ namespace Pixelatte.UI.ViewModels
         [RelayCommand]
         private async Task LoadImageAsync()
         {
-            StorageFile file = await _filePickerService.PickFile();
-
-            if (file != null)
+            try
             {
-                Tags.Clear();
-                SelectedImagePath = file.Path;
-                ImageDTO image = await _pixelatteClient.GetImageAsync($"open?img_path={file.Path}");
-                SelectedImage = image.Image;
-                Tags.Add($"{image.Width}x{image.Height}");
-                Tags.Add(Path.GetExtension(file.Path));
-                ShowContent = true;
+                StorageFile file = await _filePickerService.PickFile();
+
+                if (file != null)
+                {
+                    Tags.Clear();
+                    SelectedImagePath = file.Path;
+                    IsLoading = true;
+                    ImageDTO image = await _pixelatteClient.GetImageAsync($"open?img_path={file.Path}");
+
+                    if (image.Image == null) return;
+
+                    SelectedImage = image.Image;
+                    Tags.Add($"{image.Width}x{image.Height}");
+                    Tags.Add(Path.GetExtension(file.Path));
+                    ShowContent = true;
+                }
+            }
+            finally
+            {
+                IsLoading = false;
+                if (!ShowContent) SelectedImagePath = string.Empty;
             }
         }
 
@@ -64,16 +78,21 @@ namespace Pixelatte.UI.ViewModels
         {
             if (value && _grayscaleImage == null)
             {
+                IsLoading = true;
                 ImageDTO image = await _pixelatteClient.GetImageAsync($"grayscale?img_path={SelectedImagePath}");
                 GrayscaleImage = image.Image;
+                IsLoading = false;
             }
         }
 
-        partial void OnApplyBasicPixelOperationChanged(bool value)
+        async partial void OnApplyBasicPixelOperationChanged(bool value)
         {
             if (value && _basicPixelOperationImage == null)
             {
-                BasicPixelOperationImage = _selectedImage;
+                if (OperationValue == 0)
+                    BasicPixelOperationImage = _selectedImage;
+                else
+                    await LoadBasicPixelOperationImage();
             }
             else
             {
@@ -84,15 +103,21 @@ namespace Pixelatte.UI.ViewModels
         async partial void OnSelectedOperationChanged(string value)
         {
             if (!ApplyBasicPixelOperation) return;
-            ImageDTO image = await _pixelatteClient.GetImageAsync($"image?img_path={SelectedImagePath}&operation={SelectedOperation}&value={OperationValue}");
-            BasicPixelOperationImage = image.Image;
+            await LoadBasicPixelOperationImage();
         }
 
         async partial void OnOperationValueChanged(int value)
         {
             if (!ApplyBasicPixelOperation) return;
-            ImageDTO image = await _pixelatteClient.GetImageAsync($"image?img_path={SelectedImagePath}&operation={SelectedOperation}&value={OperationValue}");
+            await LoadBasicPixelOperationImage();
+        }
+
+        private async Task LoadBasicPixelOperationImage()
+        {
+            IsLoading = true;
+            ImageDTO image = await _pixelatteClient.GetImageAsync($"image?img_path={SelectedImagePath}&operation={SelectedOperation}&value={(OperationValue < 0 ? 0 : OperationValue)}");
             BasicPixelOperationImage = image.Image;
+            IsLoading = false;
         }
     }
 }

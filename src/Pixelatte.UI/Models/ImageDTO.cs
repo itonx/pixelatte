@@ -8,6 +8,13 @@ namespace Pixelatte.UI.Models
         public string Width { get; set; }
         public string Height { get; set; }
 
+        public ImageDTO()
+        {
+            Image = null;
+            Width = "NaN";
+            Height = "NaN";
+        }
+
         public ImageDTO(BitmapImage image, string width, string height)
         {
             Image = image;

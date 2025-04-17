@@ -13,89 +13,93 @@
     <Grid x:Name="AppContainer">
         <Grid.Resources>
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
         </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ScrollViewer Visibility="Collapsed">
-            <StackPanel Margin="10" />
-        </ScrollViewer>
-        <ScrollViewer Grid.Column="1">
-            <Grid Padding="10" RowSpacing="10">
+        <StackPanel
+            Grid.ColumnSpan="2"
+            Padding="10"
+            Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding LoadImageCommand}" Style="{ThemeResource AccentButtonStyle}">Load image</Button>
+                <TextBox
+                    Grid.Column="1"
+                    IsReadOnly="True"
+                    PlaceholderText="Choose an image"
+                    Text="{Binding SelectedImagePath}" />
+            </Grid>
+            <Grid RowSpacing="10" Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button Command="{Binding LoadImageCommand}" Style="{ThemeResource AccentButtonStyle}">Load image</Button>
-                    <TextBox
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        PlaceholderText="Choose an image"
-                        Text="{Binding SelectedImagePath}" />
-                </Grid>
-                <Grid
+                <TextBlock
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center"
+                    Style="{ThemeResource TitleLargeTextBlockStyle}">
+                    Original
+                </TextBlock>
+                <StackPanel
                     Grid.Row="1"
-                    RowSpacing="10"
-                    Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="6*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.ColumnSpan="3"
-                        HorizontalAlignment="Center"
-                        Style="{ThemeResource TitleLargeTextBlockStyle}">
-                        Original
-                    </TextBlock>
-                    <StackPanel
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1">
-                        <Image
-                            x:Name="imgContainer"
-                            MaxWidth="450"
-                            Source="{Binding SelectedImage}"
-                            Stretch="Uniform" />
-                    </StackPanel>
-                    <ItemsRepeater
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        ItemsSource="{Binding Tags, UpdateSourceTrigger=PropertyChanged}">
-                        <ItemsRepeater.Layout>
-                            <LinedFlowLayout ItemsJustification="Center" MinItemSpacing="5" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate x:DataType="x:String">
-                                <Border Background="{ThemeResource AccentAcrylicBackgroundFillColorBaseBrush}" CornerRadius="5">
-                                    <TextBlock
-                                        Padding="10,3"
-                                        HorizontalAlignment="Center"
-                                        Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
-                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                        Text="{x:Bind}" />
-                                </Border>
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
-                </Grid>
-                <Grid Grid.Row="2" Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
+                    BorderThickness="1"
+                    CornerRadius="1">
+                    <Image
+                        x:Name="imgContainer"
+                        MaxWidth="450"
+                        Source="{Binding SelectedImage}"
+                        Stretch="Uniform" />
+                </StackPanel>
+                <ItemsRepeater
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    ItemsSource="{Binding Tags, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsRepeater.Layout>
+                        <LinedFlowLayout ItemsJustification="Center" MinItemSpacing="5" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Border Background="{ThemeResource AccentAcrylicBackgroundFillColorBaseBrush}" CornerRadius="5">
+                                <TextBlock
+                                    Padding="10,3"
+                                    HorizontalAlignment="Center"
+                                    Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
+                                    Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind}" />
+                            </Border>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </Grid>
+        </StackPanel>
+        <ScrollViewer
+            Grid.Row="1"
+            Grid.Column="1"
+            IsEnabled="{Binding IsLoading, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
+            <StackPanel
+                Padding="10"
+                Orientation="Vertical"
+                Spacing="10">
+                <Grid Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Expander
                         Grid.Row="2"
                         HorizontalAlignment="Stretch"
@@ -131,7 +135,7 @@
                         </Grid>
                     </Expander>
                 </Grid>
-                <Grid Grid.Row="3" Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Expander
                         Grid.Row="2"
                         HorizontalAlignment="Stretch"
@@ -152,7 +156,10 @@
                             </Grid.RowDefinitions>
                             <StackPanel Spacing="10">
                                 <ToggleSwitch IsOn="{Binding ApplyBasicPixelOperation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <ComboBox SelectedValue="{Binding SelectedOperation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content">
+                                <ComboBox
+                                    Header="Operation"
+                                    SelectedValue="{Binding SelectedOperation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="Content">
                                     <ComboBoxItem>Add</ComboBoxItem>
                                     <ComboBoxItem>Substract</ComboBoxItem>
                                     <ComboBoxItem>Multiply</ComboBoxItem>
@@ -161,6 +168,7 @@
                                 <NumberBox
                                     Width="200"
                                     HorizontalAlignment="Left"
+                                    Header="Value"
                                     Maximum="255"
                                     Minimum="0"
                                     SmallChange="10"
@@ -169,6 +177,7 @@
                             </StackPanel>
                             <StackPanel
                                 Grid.Row="1"
+                                Margin="0,10,0,0"
                                 HorizontalAlignment="Center"
                                 BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
                                 BorderThickness="1"
@@ -183,7 +192,17 @@
                         </Grid>
                     </Expander>
                 </Grid>
-            </Grid>
+            </StackPanel>
         </ScrollViewer>
+        <Grid
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            Canvas.ZIndex="100"
+            Visibility="{Binding IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressRing IsIndeterminate="True" />
+                <TextBlock>Loading...</TextBlock>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
