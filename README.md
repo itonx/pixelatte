@@ -71,31 +71,31 @@ fastapi dev .\api.py
 
 Open the solution located in `YOUR_PATH\pixelatte\src\Pixelatte.UI\Pixelatte.UI.sln` with Visual Studio 2022.
 
-![alt text](image-1.png)
+![alt text](assets/image-1.png)
 
 Build the solution
 
-![alt text](image.png)
+![alt text](assets/image.png)
 
 Run the app
 
-![alt text](image-2.png)
+![alt text](assets/image-2.png)
 
-![alt text](image-3.png)
+![alt text](assets/image-3.png)
 
 # ⚙️ How to use Pixelatte
 
 Load an image by clicking on the `Load image` button and select an image
 
-![alt text](image-4.png)
+![alt text](assets/image-4.png)
 
 Next you can explore and play with all the image processing functions available in Pixelatte
 
 ## Grayscale
 
-![alt text](image-5.png)
+![alt text](assets/image-5.png)
 
 ## Basic pixel operations
 
-![alt text](image-7.png)
-![alt text](image-8.png)
+![alt text](assets/image-7.png)
+![alt text](assets/image-8.png)
