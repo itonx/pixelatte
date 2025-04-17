@@ -37,6 +37,12 @@ namespace Pixelatte.UI.ViewModels
         private int _operationValue;
         [ObservableProperty]
         private bool _isLoading;
+        [ObservableProperty]
+        private int _saltAndPepperNoiseLevel;
+        [ObservableProperty]
+        private bool _applySaltAndPepperNoise;
+        [ObservableProperty]
+        private BitmapImage _saltAndPepperNoiseImage;
 
         public MainWindowViewModel()
         {
@@ -117,6 +123,25 @@ namespace Pixelatte.UI.ViewModels
             IsLoading = true;
             ImageDTO image = await _pixelatteClient.GetImageAsync($"image?img_path={SelectedImagePath}&operation={SelectedOperation}&value={(OperationValue < 0 ? 0 : OperationValue)}");
             BasicPixelOperationImage = image.Image;
+            IsLoading = false;
+        }
+
+        async partial void OnApplySaltAndPepperNoiseChanged(bool value)
+        {
+            await LoadSaltAndPepperNoiseImage();
+        }
+
+        async partial void OnSaltAndPepperNoiseLevelChanged(int value)
+        {
+            if (!ApplySaltAndPepperNoise) return;
+            await LoadSaltAndPepperNoiseImage();
+        }
+
+        private async Task LoadSaltAndPepperNoiseImage()
+        {
+            IsLoading = true;
+            ImageDTO image = await _pixelatteClient.GetImageAsync($"saltandpeppernoise?img_path={SelectedImagePath}&noise_level={SaltAndPepperNoiseLevel}");
+            SaltAndPepperNoiseImage = image.Image;
             IsLoading = false;
         }
     }

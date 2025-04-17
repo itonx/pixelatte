@@ -101,7 +101,6 @@
                 Spacing="10">
                 <Grid Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Expander
-                        Grid.Row="2"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         ExpandDirection="Down">
@@ -137,7 +136,6 @@
                 </Grid>
                 <Grid Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Expander
-                        Grid.Row="2"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         ExpandDirection="Down">
@@ -187,6 +185,53 @@
                                     MaxWidth="{Binding ElementName=imgContainer, Path=MaxWidth}"
                                     MaxHeight="{Binding ElementName=imgContainer, Path=MaxHeight}"
                                     Source="{Binding BasicPixelOperationImage}"
+                                    Stretch="Uniform" />
+                            </StackPanel>
+                        </Grid>
+                    </Expander>
+                </Grid>
+                <Grid Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Expander
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        ExpandDirection="Down">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">Salt and pepper noise</TextBlock>
+                                <HyperlinkButton ToolTipService.ToolTip="Open in a new window">
+                                    <FontIcon Glyph="&#xE8A7;" />
+                                </HyperlinkButton>
+                            </StackPanel>
+                        </Expander.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Spacing="10">
+                                <ToggleSwitch IsOn="{Binding ApplySaltAndPepperNoise, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <NumberBox
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    Header="Noise Level (0-50)"
+                                    Maximum="50"
+                                    Minimum="0"
+                                    SmallChange="2"
+                                    SpinButtonPlacementMode="Inline"
+                                    Value="{Binding SaltAndPepperNoiseLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
+                                BorderThickness="1"
+                                CornerRadius="1"
+                                Visibility="{Binding ApplySaltAndPepperNoise, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Image
+                                    MaxWidth="{Binding ElementName=imgContainer, Path=MaxWidth}"
+                                    MaxHeight="{Binding ElementName=imgContainer, Path=MaxHeight}"
+                                    Source="{Binding SaltAndPepperNoiseImage}"
                                     Stretch="Uniform" />
                             </StackPanel>
                         </Grid>
