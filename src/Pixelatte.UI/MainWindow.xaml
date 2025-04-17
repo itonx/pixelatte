@@ -28,7 +28,6 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -42,7 +41,10 @@
                         PlaceholderText="Choose an image"
                         Text="{Binding SelectedImagePath}" />
                 </Grid>
-                <Grid Grid.Row="1" RowSpacing="10">
+                <Grid
+                    Grid.Row="1"
+                    RowSpacing="10"
+                    Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="6*" />
@@ -93,7 +95,7 @@
                         </ItemsRepeater.ItemTemplate>
                     </ItemsRepeater>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Expander
                         Grid.Row="2"
                         HorizontalAlignment="Stretch"
@@ -129,7 +131,7 @@
                         </Grid>
                     </Expander>
                 </Grid>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="3" Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Expander
                         Grid.Row="2"
                         HorizontalAlignment="Stretch"
@@ -137,7 +139,7 @@
                         ExpandDirection="Down">
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">BasicPixelOperations</TextBlock>
+                                <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">Basic pixel operations</TextBlock>
                                 <HyperlinkButton ToolTipService.ToolTip="Open in a new window">
                                     <FontIcon Glyph="&#xE8A7;" />
                                 </HyperlinkButton>

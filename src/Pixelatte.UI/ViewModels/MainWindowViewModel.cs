@@ -18,6 +18,8 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         ObservableCollection<string> _tags = new ObservableCollection<string>();
         [ObservableProperty]
+        private bool _showContent;
+        [ObservableProperty]
         private string _selectedImagePath;
         [ObservableProperty]
         private BitmapImage _selectedImage;
@@ -54,6 +56,7 @@ namespace Pixelatte.UI.ViewModels
                 SelectedImage = image.Image;
                 Tags.Add($"{image.Width}x{image.Height}");
                 Tags.Add(Path.GetExtension(file.Path));
+                ShowContent = true;
             }
         }
 
