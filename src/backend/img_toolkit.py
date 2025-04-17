@@ -38,6 +38,6 @@ operations = {
 def get_img_with_salt_and_pepper(img, width, height, noise_level, img_type = None):
     if(noise_level > 50): noise_level = 50
     random_threshold = np.random.randint(0, 100, size=(height, width))
-    img[random_threshold < noise_level] = 0 if img_type == 'gray' else [0, 0, 0]
-    img[random_threshold > (100-noise_level)] = 255 if img_type == 'gray' else [255, 255, 255]
+    img[random_threshold < noise_level] = 0 if img_type == 'gray' else np.zeros((3), np.uint8)
+    img[random_threshold > (100-noise_level)] = 255 if img_type == 'gray' else np.full((3), 255, np.uint8)
     return img
