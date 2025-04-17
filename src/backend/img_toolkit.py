@@ -44,14 +44,10 @@ def get_img_with_salt_and_pepper(img, width, height, noise_level, img_type = Non
                 if(img_type == 'gray'):
                     img[row, col] = 0
                 else:
-                    bgr_index = randrange(0, 3)
-                    img[row, col] = [255, 255, 255]
-                    img[row, col, bgr_index] = 0
+                    img[row, col] = [0, 0, 0]
             elif(random_number > (100-noise_level)):
                 if(img_type == 'gray'):
                     img[row, col] = 255
                 else:
-                    bgr_index = randrange(0, 3)
-                    img[row, col] = [0, 0, 0]
-                    img[row, col, bgr_index] = 255
+                    img[row, col] = [255, 255, 255]
     return img
