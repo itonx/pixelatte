@@ -10,7 +10,32 @@
     Title="Pixelatte"
     mc:Ignorable="d">
 
-    <Grid x:Name="AppContainer">
+    <Grid
+        x:Name="AppContainer"
+        MinWidth="600"
+        Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TitleBar
+            Title="Pixelatte"
+            IsBackButtonEnabled="{x:Bind RootFrame.CanGoBack, Mode=OneWay}"
+            IsBackButtonVisible="False">
+            <TitleBar.IconSource>
+                <ImageIconSource ImageSource="/Assets/icon.ico" />
+            </TitleBar.IconSource>
+        </TitleBar>
+        <Frame
+            x:Name="RootFrame"
+            Grid.Row="1"
+            Background="Transparent">
+            <local:ImagePicker Command="{Binding LoadImageCommand}" />
+        </Frame>
+    </Grid>
+
+    <!--<Grid x:Name="AppContainer">
         <Grid.Resources>
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
@@ -294,5 +319,5 @@
                 <TextBlock>Loading...</TextBlock>
             </StackPanel>
         </Grid>
-    </Grid>
+    </Grid>-->
 </Window>

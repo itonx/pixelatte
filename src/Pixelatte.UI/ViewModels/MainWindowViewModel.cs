@@ -58,26 +58,21 @@ namespace Pixelatte.UI.ViewModels
         }
 
         [RelayCommand]
-        private async Task LoadImageAsync()
+        private async Task LoadImageAsync(StorageFile file)
         {
             try
             {
-                StorageFile file = await _filePickerService.PickFile();
+                Tags.Clear();
+                SelectedImagePath = file.Path;
+                IsLoading = true;
+                ImageDTO image = await _pixelatteClient.GetImageAsync($"open?img_path={file.Path}");
 
-                if (file != null)
-                {
-                    Tags.Clear();
-                    SelectedImagePath = file.Path;
-                    IsLoading = true;
-                    ImageDTO image = await _pixelatteClient.GetImageAsync($"open?img_path={file.Path}");
+                if (image.Image == null) return;
 
-                    if (image.Image == null) return;
-
-                    SelectedImage = image.Image;
-                    Tags.Add($"{image.Width}x{image.Height}");
-                    Tags.Add(Path.GetExtension(file.Path));
-                    ShowContent = true;
-                }
+                SelectedImage = image.Image;
+                Tags.Add($"{image.Width}x{image.Height}");
+                Tags.Add(Path.GetExtension(file.Path));
+                ShowContent = true;
             }
             finally
             {

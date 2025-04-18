@@ -1,3 +1,4 @@
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Pixelatte.UI.ViewModels;
 
@@ -15,9 +16,12 @@ namespace Pixelatte.UI
         {
             this.InitializeComponent();
             this.AppContainer.DataContext = new MainWindowViewModel();
+            ExtendsContentIntoTitleBar = true;
 
-            var iconPath = System.IO.Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets", "icon.ico");
-            this.AppWindow.SetIcon(iconPath);
+            if (this.AppWindow.Presenter is OverlappedPresenter overlappedPresenter)
+            {
+                overlappedPresenter.Maximize();
+            }
         }
     }
 }

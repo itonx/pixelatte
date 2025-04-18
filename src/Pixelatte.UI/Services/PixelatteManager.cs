@@ -1,5 +1,4 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Pixelatte.UI.Models;
+﻿using Pixelatte.UI.Models;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -25,15 +24,7 @@ namespace Pixelatte.UI.Services
             }
             catch (Exception e)
             {
-                ContentDialog noWifiDialog = new ContentDialog()
-                {
-                    XamlRoot = App.m_window.Content.XamlRoot,
-                    Title = "Unhandled Exception",
-                    Content = e?.Message ?? "Unknown error",
-                    CloseButtonText = "Ok"
-                };
-
-                await noWifiDialog.ShowAsync();
+                await DialogService.ShowAsync(e?.Message);
             }
 
             return new();
