@@ -21,18 +21,7 @@
             Padding="10"
             Orientation="Vertical"
             Spacing="10">
-            <Grid ColumnSpacing="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Command="{Binding LoadImageCommand}" Style="{ThemeResource AccentButtonStyle}">Select image</Button>
-                <TextBox
-                    Grid.Column="1"
-                    IsReadOnly="True"
-                    PlaceholderText="Choose an image"
-                    Text="{Binding SelectedImagePath}" />
-            </Grid>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding SelectedImagePath}" />
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -49,10 +38,7 @@
                         Source="{Binding SelectedImage}"
                         Stretch="Uniform" />
                 </StackPanel>
-                <ItemsRepeater
-                    Grid.Row="1"
-                    HorizontalAlignment="Center"
-                    ItemsSource="{Binding Tags, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsRepeater Grid.Row="1" ItemsSource="{Binding Tags, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsRepeater.Layout>
                         <LinedFlowLayout ItemsJustification="Center" MinItemSpacing="5" />
                     </ItemsRepeater.Layout>

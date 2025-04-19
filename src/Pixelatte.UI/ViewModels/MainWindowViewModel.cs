@@ -29,11 +29,7 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         private BitmapImage _selectedImage;
         [ObservableProperty]
-        private bool _applyGrayscale;
-        [ObservableProperty]
         private BitmapImage _grayscaleImage;
-        [ObservableProperty]
-        private bool _applyBasicPixelOperation;
         [ObservableProperty]
         private BitmapImage _basicPixelOperationImage;
         [ObservableProperty]
@@ -45,15 +41,9 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         private int _saltAndPepperNoiseLevel;
         [ObservableProperty]
-        private bool _applySaltAndPepperNoise;
-        [ObservableProperty]
         private BitmapImage _saltAndPepperNoiseImage;
         [ObservableProperty]
-        private bool _showOriginalInGrayscale;
-        [ObservableProperty]
-        private bool _showOriginalInBasicPixelOperation;
-        [ObservableProperty]
-        private bool _showOriginalInSaltAndPepperNoise;
+        private bool _showOriginal;
         [ObservableProperty]
         private ObservableCollection<PixelatteOperationItem> _pixelatteOperationList = new ObservableCollection<PixelatteOperationItem>();
         [ObservableProperty]
@@ -69,6 +59,7 @@ namespace Pixelatte.UI.ViewModels
             _filePickerService = new FilePickerService();
             SelectedOperation = "Add";
             PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "Assets/LargeTile.scale-100.png", OpenGrayscalePageCommand));
+            PixelatteOperationList.Add(new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "Assets/LargeTile.scale-100.png", OpenBasicPixelOperationPageCommand));
             Page = typeof(SelectImagePage);
             Orientation = _orientationValues["horizontal"];
         }
@@ -96,41 +87,15 @@ namespace Pixelatte.UI.ViewModels
             }
         }
 
-        async partial void OnApplyGrayscaleChanged(bool value)
-        {
-            if (value && _grayscaleImage == null)
-            {
-                IsLoading = true;
-                ImageDTO image = await _pixelatteClient.GetImageAsync($"grayscale?img_path={SelectedImagePath}");
-                GrayscaleImage = image.Image;
-                IsLoading = false;
-            }
-        }
-
-        async partial void OnApplyBasicPixelOperationChanged(bool value)
-        {
-            if (value && _basicPixelOperationImage == null)
-            {
-                if (OperationValue == 0)
-                    BasicPixelOperationImage = _selectedImage;
-                else
-                    await LoadBasicPixelOperationImage();
-            }
-            else
-            {
-                BasicPixelOperationImage = null;
-            }
-        }
-
         async partial void OnSelectedOperationChanged(string value)
         {
-            if (!ApplyBasicPixelOperation) return;
+            if (_basicPixelOperationImage == null) return;
             await LoadBasicPixelOperationImage();
         }
 
         async partial void OnOperationValueChanged(int value)
         {
-            if (!ApplyBasicPixelOperation) return;
+            if (_basicPixelOperationImage == null) return;
             await LoadBasicPixelOperationImage();
         }
 
@@ -142,14 +107,8 @@ namespace Pixelatte.UI.ViewModels
             IsLoading = false;
         }
 
-        async partial void OnApplySaltAndPepperNoiseChanged(bool value)
-        {
-            await LoadSaltAndPepperNoiseImage();
-        }
-
         async partial void OnSaltAndPepperNoiseLevelChanged(int value)
         {
-            if (!ApplySaltAndPepperNoise) return;
             await LoadSaltAndPepperNoiseImage();
         }
 
@@ -182,9 +141,18 @@ namespace Pixelatte.UI.ViewModels
         {
             if (_orientationValues.ContainsKey(parameter?.ToString() ?? string.Empty))
             {
-                Orientation = "";
                 Orientation = _orientationValues[parameter.ToString()];
             }
+        }
+
+        [RelayCommand]
+        private async Task OpenBasicPixelOperationPage()
+        {
+            Page = typeof(BasicPixelOperationView);
+            IsLoading = true;
+            ImageDTO image = await _pixelatteClient.GetImageAsync($"image?img_path={SelectedImagePath}&operation={SelectedOperation}&value={(OperationValue < 0 ? 0 : OperationValue)}");
+            BasicPixelOperationImage = image.Image;
+            IsLoading = false;
         }
     }
 }

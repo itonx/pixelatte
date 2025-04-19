@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Pixelatte.UI.Views.BasicPixelOperationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Pixelatte.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Pixelatte.UI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <controls:ImageVisualizer
+        BaseImage="{Binding SelectedImage}"
+        ImageResult="{Binding BasicPixelOperationImage}"
+        ShowBaseImage="{Binding ShowOriginal}"
+        ViewerOrientation="{Binding Orientation, Converter={StaticResource StringToOrientationConverter}}">
+        <controls:ImageVisualizer.Content>
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="10">
+                <ComboBox
+                    MinWidth="120"
+                    Header="Operation"
+                    SelectedValue="{Binding SelectedOperation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedValuePath="Content">
+                    <ComboBoxItem>Add</ComboBoxItem>
+                    <ComboBoxItem>Substract</ComboBoxItem>
+                    <ComboBoxItem>Multiply</ComboBoxItem>
+                    <ComboBoxItem>Divide</ComboBoxItem>
+                </ComboBox>
+                <NumberBox
+                    Width="200"
+                    Header="Value"
+                    Maximum="255"
+                    Minimum="0"
+                    SmallChange="10"
+                    SpinButtonPlacementMode="Inline"
+                    Value="{Binding OperationValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </controls:ImageVisualizer.Content>
+    </controls:ImageVisualizer>
+</Page>
