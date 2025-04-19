@@ -13,7 +13,7 @@
         BaseImage="{Binding SelectedImage}"
         ImageResult="{Binding SaltAndPepperNoiseImage}"
         ShowBaseImage="{Binding ShowOriginal}"
-        SwitchImages="{Binding SwitchImages}"
+        SwitchImages="{Binding SwitchImages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         ViewerOrientation="{Binding IsHorizontal, Converter={StaticResource BoolToOrientationConverter}}">
         <StackPanel HorizontalAlignment="Center">
             <NumberBox

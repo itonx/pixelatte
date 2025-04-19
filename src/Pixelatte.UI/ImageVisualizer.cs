@@ -40,7 +40,19 @@ namespace Pixelatte.UI
                 nameof(ShowBaseImage),
                 typeof(bool),
                 typeof(ImageVisualizer),
-                new PropertyMetadata(false));
+                new PropertyMetadata(false, OnShowBaseImageChanged));
+
+        private static void OnShowBaseImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(bool)e.NewValue)
+            {
+                ImageVisualizer imageVisualizer = (ImageVisualizer)d;
+                if (imageVisualizer.SwitchImages)
+                {
+                    imageVisualizer.SwitchImages = false;
+                }
+            }
+        }
 
         public bool ShowBaseImage
         {
