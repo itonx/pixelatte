@@ -1,7 +1,6 @@
 ﻿using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.Xaml.Interactivity;
-using System.Diagnostics;
 
 namespace Pixelatte.UI.Behaviors
 {
@@ -63,21 +62,6 @@ namespace Pixelatte.UI.Behaviors
             }
 
             this.MainWindow.ExtendsContentIntoTitleBar = this.ExtendsContentIntoTitleBar;
-            this.MainWindow.AppWindow.Changed += AppWindow_Changed;//Fix bug
-        }
-
-        private void AppWindow_Changed(AppWindow sender, AppWindowChangedEventArgs args)
-        {
-            if (AssociatedObject.ActualHeight != this.MainWindow.AppWindow.ClientSize.Height || AssociatedObject.ActualWidth != this.MainWindow.AppWindow.ClientSize.Width)
-            {
-                Debug.WriteLine($"{AssociatedObject.ActualWidth}x{this.MainWindow.AppWindow.ClientSize.Width}");
-                Debug.WriteLine($"{AssociatedObject.ActualHeight}x{this.MainWindow.AppWindow.ClientSize.Height}");
-                //AssociatedObject.Height = this.MainWindow.AppWindow.ClientSize.Height;
-                //AssociatedObject.Width = this.MainWindow.AppWindow.ClientSize.Width;
-                AssociatedObject.Arrange(new Windows.Foundation.Rect(0, 0, this.MainWindow.AppWindow.ClientSize.Width, this.MainWindow.AppWindow.ClientSize.Height));
-                Debug.WriteLine($"> {AssociatedObject.ActualWidth}x{this.MainWindow.AppWindow.ClientSize.Width}");
-                Debug.WriteLine($"> {AssociatedObject.ActualHeight}x{this.MainWindow.AppWindow.ClientSize.Height}");
-            }
         }
 
         protected override void OnDetaching()

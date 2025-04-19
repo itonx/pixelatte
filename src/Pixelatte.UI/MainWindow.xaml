@@ -34,9 +34,12 @@
             <interactivity:Interaction.Behaviors>
                 <behaviors:BackRequestedBehavior FrameControl="{x:Bind RootFrame}" Page="{Binding Page, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </interactivity:Interaction.Behaviors>
-            <TitleBar.IconSource>
-                <ImageIconSource ImageSource="/Assets/icon.ico" />
-            </TitleBar.IconSource>
+            <TitleBar.LeftHeader>
+                <ImageIcon
+                    Width="20"
+                    Margin="0,0,5,0"
+                    Source="/Assets/icon.ico" />
+            </TitleBar.LeftHeader>
             <TitleBar.Content>
                 <Grid
                     MinWidth="100"

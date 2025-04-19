@@ -11,68 +11,66 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid
-                                x:Name="draggableArea"
-                                Width="500"
-                                Height="500"
-                                Margin="0,10,0,0"
-                                VerticalAlignment="Top"
-                                AllowDrop="True"
-                                Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
-                                BorderBrush="{ThemeResource SurfaceStrokeColorFlyoutBrush}"
-                                CornerRadius="10">
-                                <HyperlinkButton
-                                    x:Name="imagePicker"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    CornerRadius="0">
-                                    <HyperlinkButton.Resources>
-                                        <SolidColorBrush
-                                            x:Key="HyperlinkButtonBackgroundPressed"
-                                            Opacity="0.0"
-                                            Color="Black" />
-                                        <SolidColorBrush
-                                            x:Key="HyperlinkButtonBackground"
-                                            Opacity="0.1"
-                                            Color="Black" />
-                                        <SolidColorBrush
-                                            x:Key="HyperlinkButtonBackgroundPointerOver"
-                                            Opacity="0.2"
-                                            Color="Black" />
-                                    </HyperlinkButton.Resources>
-                                    <Grid Padding="24" VerticalAlignment="Stretch">
-                                        <StackPanel
-                                            Grid.Row="1"
-                                            VerticalAlignment="Center"
-                                            Orientation="Vertical"
-                                            Spacing="3">
-                                            <ImageIcon Width="150" Source="https://raw.githubusercontent.com/DiemenDesign/LibreICONS/master/svg-color/libre-gui-file-image.svg" />
-                                            <Grid Width="200" Padding="10">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-                                                <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}" Glyph="&#xEE71;" />
-                                                <TextBlock
-                                                    x:Name="TitleText"
-                                                    Grid.Column="1"
-                                                    HorizontalAlignment="Center"
-                                                    FontSize="22"
-                                                    Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                                    Style="{StaticResource TitleLargeTextBlockStyle}"
-                                                    Text="Select Image" />
-                                            </Grid>
+                        <Grid
+                            x:Name="draggableArea"
+                            Width="500"
+                            Height="500"
+                            Margin="0,10,0,0"
+                            VerticalAlignment="Top"
+                            AllowDrop="True"
+                            Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource SurfaceStrokeColorFlyoutBrush}"
+                            CornerRadius="10">
+                            <HyperlinkButton
+                                x:Name="imagePicker"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                CornerRadius="0">
+                                <HyperlinkButton.Resources>
+                                    <SolidColorBrush
+                                        x:Key="HyperlinkButtonBackgroundPressed"
+                                        Opacity="0.0"
+                                        Color="Black" />
+                                    <SolidColorBrush
+                                        x:Key="HyperlinkButtonBackground"
+                                        Opacity="0.1"
+                                        Color="Black" />
+                                    <SolidColorBrush
+                                        x:Key="HyperlinkButtonBackgroundPointerOver"
+                                        Opacity="0.2"
+                                        Color="Black" />
+                                </HyperlinkButton.Resources>
+                                <Grid Padding="24" VerticalAlignment="Stretch">
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        VerticalAlignment="Center"
+                                        Orientation="Vertical"
+                                        Spacing="3">
+                                        <ImageIcon Width="150" Source="https://raw.githubusercontent.com/DiemenDesign/LibreICONS/master/svg-color/libre-gui-file-image.svg" />
+                                        <Grid Width="200" Padding="10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <FontIcon Foreground="{ThemeResource TextFillColorPrimaryBrush}" Glyph="&#xEE71;" />
                                             <TextBlock
+                                                x:Name="TitleText"
+                                                Grid.Column="1"
                                                 HorizontalAlignment="Center"
+                                                FontSize="22"
                                                 Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                                Style="{StaticResource BodyTextBlockStyle}">
-                                                o, drag and drop and image here
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </Grid>
-                                </HyperlinkButton>
-                            </Grid>
+                                                Style="{StaticResource TitleLargeTextBlockStyle}"
+                                                Text="Select Image" />
+                                        </Grid>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                            Style="{StaticResource BodyTextBlockStyle}">
+                                            o, drag and drop and image here
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </HyperlinkButton>
                         </Grid>
                     </Border>
                 </ControlTemplate>
