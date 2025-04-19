@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Pixelatte.UI.Views.SaltAndPepperNoiseView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Pixelatte.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Pixelatte.UI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <controls:ImageVisualizer
+        BaseImage="{Binding SelectedImage}"
+        ImageResult="{Binding SaltAndPepperNoiseImage}"
+        ShowBaseImage="{Binding ShowOriginal}"
+        ViewerOrientation="{Binding Orientation, Converter={StaticResource StringToOrientationConverter}}">
+        <StackPanel HorizontalAlignment="Center">
+            <NumberBox
+                Width="200"
+                HorizontalAlignment="Left"
+                Header="Noise Level (0-50)"
+                Maximum="50"
+                Minimum="0"
+                SmallChange="2"
+                SpinButtonPlacementMode="Inline"
+                Value="{Binding SaltAndPepperNoiseLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+    </controls:ImageVisualizer>
+</Page>

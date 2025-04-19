@@ -64,6 +64,7 @@
     <None Remove="Views\BasicPixelOperationView.xaml" />
     <None Remove="Views\GrayscaleView.xaml" />
     <None Remove="Views\InitialPage.xaml" />
+    <None Remove="Views\SaltAndPepperNoiseView.xaml" />
     <None Remove="Views\SelectImagePage.xaml" />
   </ItemGroup>
 
@@ -98,6 +99,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\ImageDTO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\SaltAndPepperNoiseView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\BasicPixelOperationView.xaml">

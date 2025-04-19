@@ -75,173 +75,18 @@
                 <behaviors:MvvmNavigationBehavior Page="{Binding Page, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </interactivity:Interaction.Behaviors>
         </Frame>
-    </Grid>
-
-    <!--<Grid x:Name="AppContainer">
-        <Grid.Resources>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
-        </Grid.Resources>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <StackPanel
-            Grid.ColumnSpan="2"
-            Padding="10"
-            Orientation="Vertical">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Button Command="{Binding LoadImageCommand}" Style="{ThemeResource AccentButtonStyle}">Load image</Button>
-                <TextBox
-                    Grid.Column="1"
-                    IsReadOnly="True"
-                    PlaceholderText="Choose an image"
-                    Text="{Binding SelectedImagePath}" />
-            </Grid>
-            <Expander
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                ExpandDirection="Down"
-                IsExpanded="True"
-                Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Expander.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">Original</TextBlock>
-                    </StackPanel>
-                </Expander.Header>
-                <Grid RowSpacing="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="6*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <StackPanel
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1">
-                        <Image
-                            x:Name="imgContainer"
-                            MaxWidth="450"
-                            Source="{Binding SelectedImage}"
-                            Stretch="Uniform" />
-                    </StackPanel>
-                    <ItemsRepeater
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        ItemsSource="{Binding Tags, UpdateSourceTrigger=PropertyChanged}">
-                        <ItemsRepeater.Layout>
-                            <LinedFlowLayout ItemsJustification="Center" MinItemSpacing="5" />
-                        </ItemsRepeater.Layout>
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate x:DataType="x:String">
-                                <Border Background="{ThemeResource AccentAcrylicBackgroundFillColorBaseBrush}" CornerRadius="5">
-                                    <TextBlock
-                                        Padding="10,3"
-                                        HorizontalAlignment="Center"
-                                        Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
-                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                        Text="{x:Bind}" />
-                                </Border>
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
-                </Grid>
-            </Expander>
-
-        </StackPanel>
-        <ScrollViewer
-            Grid.Row="1"
-            Grid.Column="1"
-            IsEnabled="{Binding IsLoading, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
-            <StackPanel
-                Padding="10"
-                Orientation="Vertical"
-                Spacing="10">
-                <Grid Visibility="{Binding ShowContent, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <Expander
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch"
-                        ExpandDirection="Down">
-                        <Expander.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">Salt and pepper noise</TextBlock>
-                                <HyperlinkButton ToolTipService.ToolTip="Open in a new window">
-                                    <FontIcon Glyph="&#xE8A7;" />
-                                </HyperlinkButton>
-                            </StackPanel>
-                        </Expander.Header>
-                        <Grid RowSpacing="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <StackPanel Spacing="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <ToggleSwitch Margin="0,0,-70,0" IsOn="{Binding ApplySaltAndPepperNoise, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <CheckBox IsChecked="{Binding ShowOriginalInSaltAndPepperNoise, Mode=TwoWay}">Show original</CheckBox>
-                                </StackPanel>
-                                <NumberBox
-                                    Width="200"
-                                    HorizontalAlignment="Left"
-                                    Header="Noise Level (0-50)"
-                                    Maximum="50"
-                                    Minimum="0"
-                                    SmallChange="2"
-                                    SpinButtonPlacementMode="Inline"
-                                    Value="{Binding SaltAndPepperNoiseLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                            <StackPanel
-                                Grid.Row="1"
-                                HorizontalAlignment="Center"
-                                BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
-                                BorderThickness="1"
-                                CornerRadius="1"
-                                Orientation="Horizontal"
-                                Visibility="{Binding ApplySaltAndPepperNoise, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                                <Image
-                                    MaxWidth="{Binding ElementName=imgContainer, Path=MaxWidth}"
-                                    MaxHeight="{Binding ElementName=imgContainer, Path=MaxHeight}"
-                                    Source="{Binding SelectedImage}"
-                                    Stretch="Uniform"
-                                    Visibility="{Binding ShowOriginalInSaltAndPepperNoise, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                                <Border
-                                    BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
-                                    BorderThickness="0.5"
-                                    Visibility="{Binding ShowOriginalInSaltAndPepperNoise, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                                <Image
-                                    MaxWidth="{Binding ElementName=imgContainer, Path=MaxWidth}"
-                                    MaxHeight="{Binding ElementName=imgContainer, Path=MaxHeight}"
-                                    Source="{Binding SaltAndPepperNoiseImage}"
-                                    Stretch="Uniform" />
-                            </StackPanel>
-                        </Grid>
-                    </Expander>
-                </Grid>
-            </StackPanel>
-        </ScrollViewer>
         <Grid
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"
             Canvas.ZIndex="100"
             Visibility="{Binding IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.Background>
+                <SolidColorBrush Opacity="0.5" Color="Black" />
+            </Grid.Background>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing IsIndeterminate="True" />
-                <TextBlock>Loading...</TextBlock>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}">Loading</TextBlock>
             </StackPanel>
         </Grid>
-    </Grid>-->
+    </Grid>
 </Window>

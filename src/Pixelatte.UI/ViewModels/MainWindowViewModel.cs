@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -16,12 +17,22 @@ namespace Pixelatte.UI.ViewModels
     internal partial class MainWindowViewModel : ObservableObject
     {
         private readonly PixelatteManager _pixelatteClient;
-        private readonly FilePickerService _filePickerService;
         private readonly Dictionary<string, string> _orientationValues = new()
         {
             {"horizontal", "\uE76F" },
             {"vertical", "\uE784" },
         };
+
+        [ObservableProperty]
+        private bool _isLoading;
+        [ObservableProperty]
+        private string _operationTitle;
+        [ObservableProperty]
+        private Type _page;
+        [ObservableProperty]
+        private bool _showOriginal;
+        [ObservableProperty]
+        private string _orientation;
         [ObservableProperty]
         ObservableCollection<string> _tags = new ObservableCollection<string>();
         [ObservableProperty]
@@ -29,37 +40,30 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         private BitmapImage _selectedImage;
         [ObservableProperty]
+        private ObservableCollection<PixelatteOperationItem> _pixelatteOperationList = new ObservableCollection<PixelatteOperationItem>();
+
+        [ObservableProperty]
         private BitmapImage _grayscaleImage;
+
         [ObservableProperty]
         private BitmapImage _basicPixelOperationImage;
         [ObservableProperty]
         private string _selectedOperation;
         [ObservableProperty]
         private int _operationValue;
-        [ObservableProperty]
-        private bool _isLoading;
-        [ObservableProperty]
-        private int _saltAndPepperNoiseLevel;
+
         [ObservableProperty]
         private BitmapImage _saltAndPepperNoiseImage;
         [ObservableProperty]
-        private bool _showOriginal;
-        [ObservableProperty]
-        private ObservableCollection<PixelatteOperationItem> _pixelatteOperationList = new ObservableCollection<PixelatteOperationItem>();
-        [ObservableProperty]
-        private Type _page;
-        [ObservableProperty]
-        private string _orientation;
-        [ObservableProperty]
-        private string _operationTitle;
+        private int _saltAndPepperNoiseLevel;
 
         public MainWindowViewModel()
         {
             _pixelatteClient = new PixelatteManager("http://127.0.0.1:8000");
-            _filePickerService = new FilePickerService();
             SelectedOperation = "Add";
-            PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "Assets/LargeTile.scale-100.png", OpenGrayscalePageCommand));
-            PixelatteOperationList.Add(new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "Assets/LargeTile.scale-100.png", OpenBasicPixelOperationPageCommand));
+            PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "", OpenGrayscalePageCommand, typeof(GrayscaleView)));
+            PixelatteOperationList.Add(new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)));
+            PixelatteOperationList.Add(new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)));
             Page = typeof(SelectImagePage);
             Orientation = _orientationValues["horizontal"];
         }
@@ -128,12 +132,25 @@ namespace Pixelatte.UI.ViewModels
         [RelayCommand]
         private async Task OpenGrayscalePage()
         {
-            Page = typeof(GrayscaleView);
+            LoadPage(typeof(GrayscaleView));
             IsLoading = true;
             ImageDTO image = await _pixelatteClient.GetImageAsync($"grayscale?img_path={SelectedImagePath}");
             GrayscaleImage = image.Image;
-            OperationTitle = "Grayscale";
             IsLoading = false;
+        }
+
+        [RelayCommand]
+        private async Task OpenBasicPixelOperationPage()
+        {
+            LoadPage(typeof(BasicPixelOperationView));
+            await LoadBasicPixelOperationImage();
+        }
+
+        [RelayCommand]
+        private async Task OpenSaltAndPepperNoisePage()
+        {
+            LoadPage(typeof(SaltAndPepperNoiseView));
+            await LoadSaltAndPepperNoiseImage();
         }
 
         [RelayCommand]
@@ -145,14 +162,10 @@ namespace Pixelatte.UI.ViewModels
             }
         }
 
-        [RelayCommand]
-        private async Task OpenBasicPixelOperationPage()
+        private void LoadPage(Type pageType)
         {
-            Page = typeof(BasicPixelOperationView);
-            IsLoading = true;
-            ImageDTO image = await _pixelatteClient.GetImageAsync($"image?img_path={SelectedImagePath}&operation={SelectedOperation}&value={(OperationValue < 0 ? 0 : OperationValue)}");
-            BasicPixelOperationImage = image.Image;
-            IsLoading = false;
+            Page = pageType;
+            OperationTitle = PixelatteOperationList.FirstOrDefault(o => o.PageType == pageType)?.Title ?? string.Empty;
         }
     }
 }
