@@ -15,5 +15,6 @@
         BaseImage="{Binding SelectedImage}"
         ImageResult="{Binding GrayscaleImage}"
         ShowBaseImage="{Binding ShowOriginal}"
+        SwitchImages="{Binding SwitchImages}"
         ViewerOrientation="{Binding IsHorizontal, Converter={StaticResource BoolToOrientationConverter}}" />
 </Page>

@@ -17,6 +17,7 @@
             <localconverters:OperationTitleToVisibilityConverter x:Name="OperationTitleToVisibilityConverter" />
             <localconverters:BoolToOrientationConverter x:Name="BoolToOrientationConverter" />
             <localconverters:BoolToRotateConverter x:Name="BoolToRotateConverter" />
+            <localconverters:BoolNullableToBoolConverter x:Name="BoolNullableToBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

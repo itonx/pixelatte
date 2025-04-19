@@ -13,6 +13,7 @@
         BaseImage="{Binding SelectedImage}"
         ImageResult="{Binding BasicPixelOperationImage}"
         ShowBaseImage="{Binding ShowOriginal}"
+        SwitchImages="{Binding SwitchImages}"
         ViewerOrientation="{Binding IsHorizontal, Converter={StaticResource BoolToOrientationConverter}}">
         <controls:ImageVisualizer.Content>
             <StackPanel

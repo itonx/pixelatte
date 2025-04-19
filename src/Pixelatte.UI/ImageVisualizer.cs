@@ -40,7 +40,7 @@ namespace Pixelatte.UI
                 nameof(ShowBaseImage),
                 typeof(bool),
                 typeof(ImageVisualizer),
-                new PropertyMetadata(null));
+                new PropertyMetadata(false));
 
         public bool ShowBaseImage
         {
@@ -59,6 +59,27 @@ namespace Pixelatte.UI
         {
             get { return (Orientation)GetValue(ViewerOrientationProperty); }
             set { SetValue(ViewerOrientationProperty, value); }
+        }
+
+        public static readonly DependencyProperty SwitchImagesProperty =
+            DependencyProperty.Register(
+                nameof(SwitchImages),
+                typeof(bool),
+                typeof(ImageVisualizer),
+                new PropertyMetadata(false, OnSwitchImagesChanged));
+
+        private static void OnSwitchImagesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ImageVisualizer imageVisualizer = (ImageVisualizer)d;
+            BitmapImage original = imageVisualizer.BaseImage;
+            imageVisualizer.BaseImage = imageVisualizer.ImageResult;
+            imageVisualizer.ImageResult = original;
+        }
+
+        public bool SwitchImages
+        {
+            get { return (bool)GetValue(SwitchImagesProperty); }
+            set { SetValue(SwitchImagesProperty, value); }
         }
 
         public ImageVisualizer()

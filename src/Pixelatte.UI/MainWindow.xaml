@@ -76,7 +76,7 @@
                         BorderBrush="Transparent"
                         CornerRadius="0 0 10 10"
                         IsChecked="{Binding IsHorizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{x:Bind ShowOriginalToggle.IsChecked}"
+                        IsEnabled="{Binding ElementName=ShowOriginalToggle, Path=IsChecked, Converter={StaticResource BoolNullableToBoolConverter}}"
                         ToolTipService.ToolTip="Change orientation">
                         <FontIcon Glyph="&#xF57C;" RenderTransformOrigin="0.5,0.5">
                             <FontIcon.RenderTransform>
@@ -88,8 +88,8 @@
                         Background="Transparent"
                         BorderBrush="Transparent"
                         CornerRadius="0 0 10 10"
-                        IsChecked="{Binding IsHorizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{x:Bind ShowOriginalToggle.IsChecked}"
+                        IsChecked="{Binding SwitchImages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding ElementName=ShowOriginalToggle, Path=IsChecked, Converter={StaticResource BoolNullableToBoolConverter}}"
                         ToolTipService.ToolTip="Switch position">
                         <FontIcon Glyph="&#xE8AB;" />
                     </ToggleButton>

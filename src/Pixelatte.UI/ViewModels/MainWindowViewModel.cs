@@ -28,7 +28,7 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         private bool _isHorizontal;
         [ObservableProperty]
-        private string _isHorizontalIcon;
+        private bool _switchImages;
         [ObservableProperty]
         ObservableCollection<string> _tags = new ObservableCollection<string>();
         [ObservableProperty]
