@@ -144,6 +144,8 @@
                     Color="{ThemeResource SystemAccentColor}" />
             </ScrollViewer.Resources>
             <GridView
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center"
                 IsItemClickEnabled="True"
                 IsSwipeEnabled="False"
                 ItemContainerStyle="{StaticResource IndentedGridViewItemStyle}"
