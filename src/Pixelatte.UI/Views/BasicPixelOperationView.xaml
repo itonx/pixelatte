@@ -13,7 +13,7 @@
         BaseImage="{Binding SelectedImage}"
         ImageResult="{Binding BasicPixelOperationImage}"
         ShowBaseImage="{Binding ShowOriginal}"
-        ViewerOrientation="{Binding Orientation, Converter={StaticResource StringToOrientationConverter}}">
+        ViewerOrientation="{Binding IsHorizontal, Converter={StaticResource BoolToOrientationConverter}}">
         <controls:ImageVisualizer.Content>
             <StackPanel
                 HorizontalAlignment="Center"

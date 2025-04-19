@@ -13,7 +13,7 @@
         BaseImage="{Binding SelectedImage}"
         ImageResult="{Binding SaltAndPepperNoiseImage}"
         ShowBaseImage="{Binding ShowOriginal}"
-        ViewerOrientation="{Binding Orientation, Converter={StaticResource StringToOrientationConverter}}">
+        ViewerOrientation="{Binding IsHorizontal, Converter={StaticResource BoolToOrientationConverter}}">
         <StackPanel HorizontalAlignment="Center">
             <NumberBox
                 Width="200"

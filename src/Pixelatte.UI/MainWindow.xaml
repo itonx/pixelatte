@@ -63,18 +63,35 @@
                     Spacing="5"
                     Visibility="{Binding OperationTitle, Converter={StaticResource OperationTitleToVisibilityConverter}}">
                     <ToggleButton
+                        x:Name="ShowOriginalToggle"
                         Background="Transparent"
                         BorderBrush="Transparent"
                         CornerRadius="0 0 10 10"
-                        IsChecked="{Binding ShowOriginal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        IsChecked="{Binding ShowOriginal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTipService.ToolTip="Show loaded image">
                         <FontIcon Glyph="&#xE8B9;" />
                     </ToggleButton>
                     <ToggleButton
                         Background="Transparent"
                         BorderBrush="Transparent"
                         CornerRadius="0 0 10 10"
-                        IsChecked="{Binding IsHorizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <FontIcon Glyph="&#xE76F;" />
+                        IsChecked="{Binding IsHorizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{x:Bind ShowOriginalToggle.IsChecked}"
+                        ToolTipService.ToolTip="Change orientation">
+                        <FontIcon Glyph="&#xF57C;" RenderTransformOrigin="0.5,0.5">
+                            <FontIcon.RenderTransform>
+                                <RotateTransform Angle="{Binding IsHorizontal, Converter={StaticResource BoolToRotateConverter}}" />
+                            </FontIcon.RenderTransform>
+                        </FontIcon>
+                    </ToggleButton>
+                    <ToggleButton
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        CornerRadius="0 0 10 10"
+                        IsChecked="{Binding IsHorizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{x:Bind ShowOriginalToggle.IsChecked}"
+                        ToolTipService.ToolTip="Switch position">
+                        <FontIcon Glyph="&#xE8AB;" />
                     </ToggleButton>
                 </StackPanel>
             </TitleBar.RightHeader>

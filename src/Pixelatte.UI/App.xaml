@@ -14,8 +14,9 @@
             </ResourceDictionary.MergedDictionaries>
             <!--  Other app resources here  -->
             <converters:BoolToVisibilityConverter x:Name="BoolToVisibilityConverter" />
-            <localconverters:StringToOrientationConverter x:Name="StringToOrientationConverter" />
             <localconverters:OperationTitleToVisibilityConverter x:Name="OperationTitleToVisibilityConverter" />
+            <localconverters:BoolToOrientationConverter x:Name="BoolToOrientationConverter" />
+            <localconverters:BoolToRotateConverter x:Name="BoolToRotateConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

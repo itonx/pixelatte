@@ -5,7 +5,6 @@ using Pixelatte.UI.Models;
 using Pixelatte.UI.Services;
 using Pixelatte.UI.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -17,11 +16,6 @@ namespace Pixelatte.UI.ViewModels
     internal partial class MainWindowViewModel : ObservableObject
     {
         private readonly PixelatteManager _pixelatteClient;
-        private readonly Dictionary<string, string> _orientationValues = new()
-        {
-            {"horizontal", "\uE76F" },
-            {"vertical", "\uE784" },
-        };
 
         [ObservableProperty]
         private bool _isLoading;
@@ -34,7 +28,7 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         private bool _isHorizontal;
         [ObservableProperty]
-        private string _orientation;
+        private string _isHorizontalIcon;
         [ObservableProperty]
         ObservableCollection<string> _tags = new ObservableCollection<string>();
         [ObservableProperty]
@@ -67,7 +61,6 @@ namespace Pixelatte.UI.ViewModels
             PixelatteOperationList.Add(new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)));
             PixelatteOperationList.Add(new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)));
             Page = typeof(SelectImagePage);
-            Orientation = _orientationValues["horizontal"];
         }
 
         [RelayCommand]
@@ -91,11 +84,6 @@ namespace Pixelatte.UI.ViewModels
             {
                 IsLoading = false;
             }
-        }
-
-        partial void OnIsHorizontalChanged(bool value)
-        {
-            Orientation = _orientationValues[value ? "horizontal" : "vertical"];
         }
 
         async partial void OnSelectedOperationChanged(string value)
@@ -158,15 +146,6 @@ namespace Pixelatte.UI.ViewModels
         {
             LoadPage(typeof(SaltAndPepperNoiseView));
             await LoadSaltAndPepperNoiseImage();
-        }
-
-        [RelayCommand]
-        private void ChangeOrientation(object? parameter)
-        {
-            if (_orientationValues.ContainsKey(parameter?.ToString() ?? string.Empty))
-            {
-                Orientation = _orientationValues[parameter.ToString()];
-            }
         }
 
         private void LoadPage(Type pageType)
