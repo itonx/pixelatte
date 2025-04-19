@@ -14,6 +14,9 @@
     mc:Ignorable="d">
 
     <Grid x:Name="AppContainer">
+        <interactivity:Interaction.Behaviors>
+            <behaviors:MaximizedAtStartupBehavior AppWindow="{x:Bind AppWindow}"/>
+        </interactivity:Interaction.Behaviors>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

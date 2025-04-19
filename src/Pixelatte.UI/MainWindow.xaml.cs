@@ -1,4 +1,3 @@
-using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Pixelatte.UI.ViewModels;
 using Pixelatte.UI.Views;
@@ -17,12 +16,7 @@ namespace Pixelatte.UI
         {
             this.InitializeComponent();
             this.AppContainer.DataContext = new MainWindowViewModel();
-            ExtendsContentIntoTitleBar = true;
-
-            if (this.AppWindow.Presenter is OverlappedPresenter overlappedPresenter)
-            {
-                overlappedPresenter.Maximize();
-            }
+            this.ExtendsContentIntoTitleBar = true;
             this.RootFrame.Navigate(typeof(InitialPage));
             this.AppWindow.Changed += AppWindow_Changed;
         }
