@@ -34,10 +34,5 @@ namespace Pixelatte.UI
                 this.AppContainer.Arrange(new Windows.Foundation.Rect(0, 0, this.AppWindow.ClientSize.Width, this.AppWindow.ClientSize.Height));
             }
         }
-
-        private void TitleBar_BackRequested(Microsoft.UI.Xaml.Controls.TitleBar sender, object args)
-        {
-            this.RootFrame.GoBack();
-        }
     }
 }
