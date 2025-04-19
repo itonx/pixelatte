@@ -60,6 +60,8 @@ namespace Pixelatte.UI.ViewModels
         private Type _page;
         [ObservableProperty]
         private string _orientation;
+        [ObservableProperty]
+        private string _operationTitle;
 
         public MainWindowViewModel()
         {
@@ -151,6 +153,11 @@ namespace Pixelatte.UI.ViewModels
             await LoadSaltAndPepperNoiseImage();
         }
 
+        partial void OnPageChanged(Type value)
+        {
+            if (value == null) OperationTitle = null;
+        }
+
         private async Task LoadSaltAndPepperNoiseImage()
         {
             IsLoading = true;
@@ -166,6 +173,7 @@ namespace Pixelatte.UI.ViewModels
             IsLoading = true;
             ImageDTO image = await _pixelatteClient.GetImageAsync($"grayscale?img_path={SelectedImagePath}");
             GrayscaleImage = image.Image;
+            OperationTitle = "Grayscale";
             IsLoading = false;
         }
 

@@ -28,6 +28,7 @@
 
         <TitleBar
             Title="Pixelatte"
+            HorizontalContentAlignment="Center"
             IsBackButtonEnabled="{x:Bind RootFrame.CanGoBack, Mode=OneWay}"
             IsBackButtonVisible="True">
             <interactivity:Interaction.Behaviors>
@@ -36,6 +37,18 @@
             <TitleBar.IconSource>
                 <ImageIconSource ImageSource="/Assets/icon.ico" />
             </TitleBar.IconSource>
+            <TitleBar.Content>
+                <Grid
+                    MinWidth="100"
+                    Margin="-77,0,0,0"
+                    Padding="4"
+                    VerticalAlignment="Center"
+                    Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
+                    CornerRadius="7"
+                    Visibility="{Binding OperationTitle, Converter={StaticResource OperationTitleToVisibilityConverter}}">
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding OperationTitle}" />
+                </Grid>
+            </TitleBar.Content>
         </TitleBar>
         <Grid
             Grid.Row="1"

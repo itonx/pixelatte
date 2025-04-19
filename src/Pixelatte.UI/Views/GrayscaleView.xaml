@@ -65,28 +65,36 @@
                 </SplitButton.Flyout>
             </SplitButton>
         </StackPanel>
-        <ScrollViewer Grid.Row="1">
-            <StackPanel
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
-                BorderThickness="1"
-                CornerRadius="1"
-                Orientation="Vertical">
-                <Image
-                    MaxWidth="800"
-                    Source="{Binding SelectedImage}"
-                    Stretch="Uniform"
-                    Visibility="{Binding ShowOriginalInGrayscale, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                <Border
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Visible"
+            HorizontalScrollMode="Enabled">
+            <Grid>
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
-                    BorderThickness="0.5"
-                    Visibility="{Binding ShowOriginalInGrayscale, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                <Image
-                    MaxWidth="800"
-                    Source="{Binding GrayscaleImage}"
-                    Stretch="Uniform" />
-            </StackPanel>
+                    BorderThickness="1"
+                    CornerRadius="1"
+                    Orientation="{Binding Orientation, Converter={StaticResource StringToOrientationConverter}}">
+                    <Image
+                        MaxWidth="800"
+                        HorizontalAlignment="Center"
+                        Source="{Binding SelectedImage}"
+                        Stretch="Uniform"
+                        Visibility="{Binding ShowOriginalInGrayscale, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Border
+                        HorizontalAlignment="Center"
+                        BorderBrush="{ThemeResource AccentFillColorSecondaryBrush}"
+                        BorderThickness="0.5"
+                        Visibility="{Binding ShowOriginalInGrayscale, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Image
+                        MaxWidth="800"
+                        HorizontalAlignment="Center"
+                        Source="{Binding GrayscaleImage}"
+                        Stretch="Uniform" />
+                </StackPanel>
+            </Grid>
         </ScrollViewer>
     </Grid>
 </Page>

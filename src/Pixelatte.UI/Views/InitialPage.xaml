@@ -12,7 +12,7 @@
     xmlns:models="using:Pixelatte.UI.Models"
     mc:Ignorable="d">
 
-    <Grid x:Name="AppContainer">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
@@ -24,7 +24,7 @@
             <Grid ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Command="{Binding LoadImageCommand}" Style="{ThemeResource AccentButtonStyle}">Select image</Button>
                 <TextBox
@@ -51,7 +51,7 @@
                 </StackPanel>
                 <ItemsRepeater
                     Grid.Row="1"
-                    Grid.Column="1"
+                    HorizontalAlignment="Center"
                     ItemsSource="{Binding Tags, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsRepeater.Layout>
                         <LinedFlowLayout ItemsJustification="Center" MinItemSpacing="5" />
