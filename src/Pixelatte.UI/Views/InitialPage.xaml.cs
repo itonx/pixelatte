@@ -14,10 +14,5 @@ namespace Pixelatte.UI.Views
         {
             this.InitializeComponent();
         }
-
-        private void GridView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            (App.m_window as MainWindow).RootFrame.Navigate(typeof(GrayscaleView), null, new Microsoft.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo());
-        }
     }
 }

@@ -5,6 +5,7 @@ using Pixelatte.UI.Models;
 using Pixelatte.UI.Services;
 using Pixelatte.UI.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,7 +17,11 @@ namespace Pixelatte.UI.ViewModels
     {
         private readonly PixelatteManager _pixelatteClient;
         private readonly FilePickerService _filePickerService;
-
+        private readonly Dictionary<string, string> _orientationValues = new()
+        {
+            {"horizontal", "\uE76F" },
+            {"vertical", "\uE784" },
+        };
         [ObservableProperty]
         ObservableCollection<string> _tags = new ObservableCollection<string>();
         [ObservableProperty]
@@ -53,14 +58,17 @@ namespace Pixelatte.UI.ViewModels
         private ObservableCollection<PixelatteOperationItem> _pixelatteOperationList = new ObservableCollection<PixelatteOperationItem>();
         [ObservableProperty]
         private Type _page;
+        [ObservableProperty]
+        private string _orientation;
 
         public MainWindowViewModel()
         {
             _pixelatteClient = new PixelatteManager("http://127.0.0.1:8000");
             _filePickerService = new FilePickerService();
             SelectedOperation = "Add";
-            PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "Assets/LargeTile.scale-100.png"));
+            PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "Assets/LargeTile.scale-100.png", OpenGrayscalePageCommand));
             Page = typeof(SelectImagePage);
+            Orientation = _orientationValues["horizontal"];
         }
 
         [RelayCommand]
@@ -149,6 +157,26 @@ namespace Pixelatte.UI.ViewModels
             ImageDTO image = await _pixelatteClient.GetImageAsync($"saltandpeppernoise?img_path={SelectedImagePath}&noise_level={SaltAndPepperNoiseLevel}");
             SaltAndPepperNoiseImage = image.Image;
             IsLoading = false;
+        }
+
+        [RelayCommand]
+        private async Task OpenGrayscalePage()
+        {
+            Page = typeof(GrayscaleView);
+            IsLoading = true;
+            ImageDTO image = await _pixelatteClient.GetImageAsync($"grayscale?img_path={SelectedImagePath}");
+            GrayscaleImage = image.Image;
+            IsLoading = false;
+        }
+
+        [RelayCommand]
+        private void ChangeOrientation(object? parameter)
+        {
+            if (_orientationValues.ContainsKey(parameter?.ToString() ?? string.Empty))
+            {
+                Orientation = "";
+                Orientation = _orientationValues[parameter.ToString()];
+            }
         }
     }
 }

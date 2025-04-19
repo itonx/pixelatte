@@ -19,7 +19,7 @@ namespace Pixelatte.UI.Behaviors
             if (d is MvvmNavigationBehavior behavior && e.NewValue != null && behavior.IsLoaded)
             {
                 Type? pageType = e.NewValue as Type;
-                behavior.AssociatedObject.Navigate(pageType);
+                behavior.AssociatedObject.Navigate(pageType, null, new Microsoft.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo());
             }
         }
 
