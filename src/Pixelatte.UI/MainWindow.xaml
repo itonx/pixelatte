@@ -28,7 +28,7 @@
 
         <TitleBar
             Title="Pixelatte"
-            HorizontalContentAlignment="Center"
+            Margin="0,0,100,0"
             IsBackButtonEnabled="{x:Bind RootFrame.CanGoBack, Mode=OneWay}"
             IsBackButtonVisible="True">
             <interactivity:Interaction.Behaviors>
@@ -41,17 +41,43 @@
                     Source="/Assets/icon.ico" />
             </TitleBar.LeftHeader>
             <TitleBar.Content>
-                <Grid
-                    MinWidth="100"
-                    Margin="-70,0,0,0"
-                    Padding="4"
+                <StackPanel
+                    Margin="125,0,0,0"
+                    Padding="10,5"
                     VerticalAlignment="Center"
                     Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
                     CornerRadius="7"
+                    Orientation="Horizontal"
                     Visibility="{Binding OperationTitle, Converter={StaticResource OperationTitleToVisibilityConverter}}">
-                    <TextBlock HorizontalAlignment="Center" Text="{Binding OperationTitle}" />
-                </Grid>
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="{Binding OperationTitle}" />
+                </StackPanel>
             </TitleBar.Content>
+            <TitleBar.RightHeader>
+                <StackPanel
+                    Margin="0,0,0,0"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    Spacing="5"
+                    Visibility="{Binding OperationTitle, Converter={StaticResource OperationTitleToVisibilityConverter}}">
+                    <ToggleButton
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        CornerRadius="0 0 10 10"
+                        IsChecked="{Binding ShowOriginal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <FontIcon Glyph="&#xE8B9;" />
+                    </ToggleButton>
+                    <ToggleButton
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        CornerRadius="0 0 10 10"
+                        IsChecked="{Binding IsHorizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <FontIcon Glyph="&#xE76F;" />
+                    </ToggleButton>
+                </StackPanel>
+            </TitleBar.RightHeader>
         </TitleBar>
         <Grid
             Grid.Row="1"

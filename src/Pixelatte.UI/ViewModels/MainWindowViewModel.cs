@@ -32,6 +32,8 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         private bool _showOriginal;
         [ObservableProperty]
+        private bool _isHorizontal;
+        [ObservableProperty]
         private string _orientation;
         [ObservableProperty]
         ObservableCollection<string> _tags = new ObservableCollection<string>();
@@ -89,6 +91,11 @@ namespace Pixelatte.UI.ViewModels
             {
                 IsLoading = false;
             }
+        }
+
+        partial void OnIsHorizontalChanged(bool value)
+        {
+            Orientation = _orientationValues[value ? "horizontal" : "vertical"];
         }
 
         async partial void OnSelectedOperationChanged(string value)
