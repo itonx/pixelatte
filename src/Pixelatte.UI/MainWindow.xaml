@@ -10,12 +10,16 @@
     xmlns:local="using:Pixelatte.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:Pixelatte.UI.Views"
+    x:Name="MainWindowInstance"
     Title="Pixelatte"
     mc:Ignorable="d">
 
     <Grid x:Name="AppContainer">
         <interactivity:Interaction.Behaviors>
-            <behaviors:MaximizedAtStartupBehavior AppWindow="{x:Bind AppWindow}"/>
+            <behaviors:InitializeOptionsBehavior
+                ExtendsContentIntoTitleBar="True"
+                MainWindow="{x:Bind MainWindowInstance}"
+                MaximizeAtStartup="True" />
         </interactivity:Interaction.Behaviors>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,7 +31,7 @@
             IsBackButtonEnabled="{x:Bind RootFrame.CanGoBack, Mode=OneWay}"
             IsBackButtonVisible="True">
             <interactivity:Interaction.Behaviors>
-                <behaviors:BackRequestedBehavior FrameControl="{x:Bind RootFrame}" />
+                <behaviors:BackRequestedBehavior FrameControl="{x:Bind RootFrame}" Page="{Binding Page, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </interactivity:Interaction.Behaviors>
             <TitleBar.IconSource>
                 <ImageIconSource ImageSource="/Assets/icon.ico" />
@@ -50,7 +54,11 @@
             x:Name="RootFrame"
             Grid.Row="1"
             x:FieldModifier="internal"
-            Background="Transparent" />
+            Background="Transparent">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:MvvmNavigationBehavior Page="{Binding Page, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </interactivity:Interaction.Behaviors>
+        </Frame>
     </Grid>
 
     <!--<Grid x:Name="AppContainer">

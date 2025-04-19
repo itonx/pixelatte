@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Pixelatte.UI.Models;
 using Pixelatte.UI.Services;
+using Pixelatte.UI.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -17,8 +19,6 @@ namespace Pixelatte.UI.ViewModels
 
         [ObservableProperty]
         ObservableCollection<string> _tags = new ObservableCollection<string>();
-        [ObservableProperty]
-        private bool _showContent;
         [ObservableProperty]
         private string _selectedImagePath;
         [ObservableProperty]
@@ -51,6 +51,8 @@ namespace Pixelatte.UI.ViewModels
         private bool _showOriginalInSaltAndPepperNoise;
         [ObservableProperty]
         private ObservableCollection<PixelatteOperationItem> _pixelatteOperationList = new ObservableCollection<PixelatteOperationItem>();
+        [ObservableProperty]
+        private Type _page;
 
         public MainWindowViewModel()
         {
@@ -58,6 +60,7 @@ namespace Pixelatte.UI.ViewModels
             _filePickerService = new FilePickerService();
             SelectedOperation = "Add";
             PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "Assets/LargeTile.scale-100.png"));
+            Page = typeof(SelectImagePage);
         }
 
         [RelayCommand]
@@ -75,12 +78,11 @@ namespace Pixelatte.UI.ViewModels
                 SelectedImage = image.Image;
                 Tags.Add($"{image.Width}x{image.Height}");
                 Tags.Add(Path.GetExtension(file.Path));
-                ShowContent = true;
+                Page = typeof(InitialPage);
             }
             finally
             {
                 IsLoading = false;
-                if (!ShowContent) SelectedImagePath = string.Empty;
             }
         }
 

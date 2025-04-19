@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Xaml.Interactivity;
+using System;
 
 namespace Pixelatte.UI.Behaviors
 {
@@ -19,6 +20,19 @@ namespace Pixelatte.UI.Behaviors
             set { SetValue(FrameControlProperty, value); }
         }
 
+        public static readonly DependencyProperty PageProperty =
+            DependencyProperty.Register(
+                nameof(Page),
+                typeof(Type),
+                typeof(BackRequestedBehavior),
+                new PropertyMetadata(null));
+
+        public Type Page
+        {
+            get { return (Type)GetValue(PageProperty); }
+            set { SetValue(PageProperty, value); }
+        }
+
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -29,6 +43,7 @@ namespace Pixelatte.UI.Behaviors
         {
             if (this.FrameControl == null) return;
             if (!this.FrameControl.CanGoBack) return;
+            this.Page = null;//Page is not updated on GoBack(), null will trigger the next Page
             this.FrameControl.GoBack();
         }
 
