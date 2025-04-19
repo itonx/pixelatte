@@ -84,13 +84,13 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid Width="72" CornerRadius="{ThemeResource ControlCornerRadius}">
-                                <!--<Image
+                                <Image
                                     x:Name="gridImage"
                                     Width="48"
                                     VerticalAlignment="Center"
                                     AutomationProperties.Name="{x:Bind Title}"
                                     Source="{x:Bind ImagePath}"
-                                    Stretch="Uniform" />-->
+                                    Stretch="Uniform" />
                             </Grid>
                             <StackPanel
                                 Grid.Column="1"

@@ -60,7 +60,12 @@
     <Content Remove="Assets\Wide310x150Logo.scale-400.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\basicPixelOperation.svg" />
+    <None Remove="Assets\grayscale.svg" />
     <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\picture.png" />
+    <None Remove="Assets\saltAndPepperNoise.png" />
+    <None Remove="Assets\saltAndPepperNoise.svg" />
     <None Remove="Views\BasicPixelOperationView.xaml" />
     <None Remove="Views\GrayscaleView.xaml" />
     <None Remove="Views\InitialPage.xaml" />

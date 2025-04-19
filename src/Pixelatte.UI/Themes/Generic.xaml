@@ -48,7 +48,7 @@
                                         VerticalAlignment="Center"
                                         Orientation="Vertical"
                                         Spacing="3">
-                                        <ImageIcon Width="150" Source="https://raw.githubusercontent.com/DiemenDesign/LibreICONS/master/svg-color/libre-gui-file-image.svg" />
+                                        <ImageIcon Width="180" Source="/Assets/picture.png" />
                                         <Grid Width="200" Padding="10">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />

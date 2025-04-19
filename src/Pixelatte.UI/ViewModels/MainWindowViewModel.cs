@@ -57,9 +57,9 @@ namespace Pixelatte.UI.ViewModels
         {
             _pixelatteClient = new PixelatteManager("http://127.0.0.1:8000");
             SelectedOperation = "Add";
-            PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "", OpenGrayscalePageCommand, typeof(GrayscaleView)));
-            PixelatteOperationList.Add(new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)));
-            PixelatteOperationList.Add(new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)));
+            PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "/Assets/grayscale.svg", OpenGrayscalePageCommand, typeof(GrayscaleView)));
+            PixelatteOperationList.Add(new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "/Assets/basicPixelOperation.svg", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)));
+            PixelatteOperationList.Add(new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "/Assets/saltAndPepperNoise.png", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)));
             Page = typeof(SelectImagePage);
         }
 

@@ -7,6 +7,10 @@
 
 Pixelatte is an intuitive and powerful desktop app designed for image processing through well-known libraries for Python. Whether you're a learning or teaching image processing techniques, Pixelatte helps you to apply pixel level operations and get instant visual feedback.
 
+<p align="center">
+<img src="./assets/pixelatte-operations.png">
+</p>
+
 # 💻 How to run Pixelatte
 
 Pixelatte is compound of a backend written in Python and a GUI made with WinUI3. The GUI depends on the backend so make sure the local server is always running before starting the GUI.
@@ -81,21 +85,22 @@ Run the app
 
 ![alt text](assets/image-2.png)
 
-![alt text](assets/image-3.png)
+![alt text](assets/select-image.png)
 
 # ⚙️ How to use Pixelatte
 
-Load an image by clicking on the `Load image` button and select an image
+Load an image by clicking on the `Select image` card and select an image
 
-![alt text](assets/image-4.png)
+![alt text](assets/pixelatte-operations.png)
 
 Next you can explore and play with all the image processing functions available in Pixelatte
 
-## Grayscale
+## Example
 
-![alt text](assets/image-5.png)
+![alt text](assets/salt-and-pepper-noise-gen.png)
 
-## Basic pixel operations
+![alt text](assets/show-original.png)
 
-![alt text](assets/image-7.png)
-![alt text](assets/image-8.png)
+## Special Thanks
+
+<a href="https://www.flaticon.com/free-icons/picture" title="picture icons">Select image icon created by Freepik - Flaticon</a>
