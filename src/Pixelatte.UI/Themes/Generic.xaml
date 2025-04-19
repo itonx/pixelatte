@@ -12,16 +12,6 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <Grid Height="500" VerticalAlignment="Top">
-                                <Rectangle>
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                            <GradientStop Offset="0.0" Color="#2C5364" />
-                                            <GradientStop Offset="1" Color="#000" />
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Grid>
                             <Grid
                                 x:Name="draggableArea"
                                 Width="500"

@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\icon.ico" />
+    <None Remove="Views\GrayscaleView.xaml" />
+    <None Remove="Views\InitialPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -89,13 +91,21 @@
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.4" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensions\" />
+    <None Include="Models\ImageDTO.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\ImageDTO.cs" />
+    <Page Update="Views\GrayscaleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\InitialPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--

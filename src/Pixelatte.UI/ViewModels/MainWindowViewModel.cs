@@ -49,12 +49,15 @@ namespace Pixelatte.UI.ViewModels
         private bool _showOriginalInBasicPixelOperation;
         [ObservableProperty]
         private bool _showOriginalInSaltAndPepperNoise;
+        [ObservableProperty]
+        private ObservableCollection<PixelatteOperationItem> _pixelatteOperationList = new ObservableCollection<PixelatteOperationItem>();
 
         public MainWindowViewModel()
         {
             _pixelatteClient = new PixelatteManager("http://127.0.0.1:8000");
             _filePickerService = new FilePickerService();
             SelectedOperation = "Add";
+            PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "Assets/LargeTile.scale-100.png"));
         }
 
         [RelayCommand]
