@@ -66,6 +66,7 @@
     <None Remove="Assets\picture.png" />
     <None Remove="Assets\saltAndPepperNoise.png" />
     <None Remove="Assets\saltAndPepperNoise.svg" />
+    <None Remove="Backend\*" />
     <None Remove="Views\BasicPixelOperationView.xaml" />
     <None Remove="Views\GrayscaleView.xaml" />
     <None Remove="Views\InitialPage.xaml" />
@@ -80,6 +81,7 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Backend\*" />
   </ItemGroup>
 
   <ItemGroup>

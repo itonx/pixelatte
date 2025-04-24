@@ -9,5 +9,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <controls:ImagePicker Command="{Binding LoadImageCommand}" />
+    <StackPanel Spacing="10">
+        <controls:ImagePicker Command="{Binding LoadImageCommand}" />
+        <Button Click="Button_Click" Style="{ThemeResource AccentButtonStyle}">Start service</Button>
+        <Button Click="ButtonCancel_Click" Style="{ThemeResource AccentButtonStyle}">Cancel service</Button>
+        <TextBox
+            x:Name="OutputTextBox"
+            Height="250"
+            AcceptsReturn="True"
+            IsReadOnly="True"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            TextWrapping="Wrap" />
+    </StackPanel>
 </Page>
