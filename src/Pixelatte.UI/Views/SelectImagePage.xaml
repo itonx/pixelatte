@@ -11,7 +11,7 @@
 
     <StackPanel Spacing="10">
         <controls:ImagePicker Command="{Binding LoadImageCommand}" />
-        <Button Click="Button_Click" Style="{ThemeResource AccentButtonStyle}">Start service</Button>
+        <!--<Button Click="Button_Click" Style="{ThemeResource AccentButtonStyle}">Start service</Button>
         <Button Click="ButtonCancel_Click" Style="{ThemeResource AccentButtonStyle}">Cancel service</Button>
         <TextBox
             x:Name="OutputTextBox"
@@ -19,6 +19,6 @@
             AcceptsReturn="True"
             IsReadOnly="True"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap" />-->
     </StackPanel>
 </Page>

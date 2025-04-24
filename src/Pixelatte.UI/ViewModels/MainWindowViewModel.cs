@@ -24,11 +24,17 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         private Type _page;
         [ObservableProperty]
+        private bool _showServerConfiguration;
+        [ObservableProperty]
         private bool _showOriginal;
         [ObservableProperty]
         private bool _isHorizontal;
         [ObservableProperty]
         private bool _switchImages;
+        [ObservableProperty]
+        private bool _isLocalServerRunning;
+        [ObservableProperty]
+        private bool _isLocalServerLoading;
         [ObservableProperty]
         ObservableCollection<string> _tags = new ObservableCollection<string>();
         [ObservableProperty]
@@ -61,6 +67,7 @@ namespace Pixelatte.UI.ViewModels
             PixelatteOperationList.Add(new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "/Assets/basicPixelOperation.svg", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)));
             PixelatteOperationList.Add(new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "/Assets/saltAndPepperNoise.png", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)));
             Page = typeof(SelectImagePage);
+            ShowServerConfiguration = true;
         }
 
         [RelayCommand]

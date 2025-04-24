@@ -24,6 +24,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TitleBar
@@ -42,7 +43,7 @@
             </TitleBar.LeftHeader>
             <TitleBar.Content>
                 <StackPanel
-                    Margin="125,0,0,0"
+                    Margin="215,0,0,0"
                     Padding="10,5"
                     VerticalAlignment="Center"
                     Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"
@@ -56,43 +57,55 @@
                 </StackPanel>
             </TitleBar.Content>
             <TitleBar.RightHeader>
-                <StackPanel
-                    Margin="0,0,0,0"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal"
-                    Spacing="5"
-                    Visibility="{Binding OperationTitle, Converter={StaticResource OperationTitleToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
                     <ToggleButton
-                        x:Name="ShowOriginalToggle"
+                        x:Name="ShowServerConfigurationToggle"
+                        VerticalAlignment="Top"
                         Background="Transparent"
                         BorderBrush="Transparent"
                         CornerRadius="0 0 10 10"
-                        IsChecked="{Binding ShowOriginal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ToolTipService.ToolTip="Show loaded image">
-                        <FontIcon Glyph="&#xE8B9;" />
+                        IsChecked="{Binding ShowServerConfiguration, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTipService.ToolTip="Show server configuration">
+                        <FontIcon Glyph="&#xEC4E;" />
                     </ToggleButton>
-                    <ToggleButton
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        CornerRadius="0 0 10 10"
-                        IsChecked="{Binding IsHorizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding ElementName=ShowOriginalToggle, Path=IsChecked, Converter={StaticResource BoolNullableToBoolConverter}}"
-                        ToolTipService.ToolTip="Change orientation">
-                        <FontIcon Glyph="&#xF57C;" RenderTransformOrigin="0.5,0.5">
-                            <FontIcon.RenderTransform>
-                                <RotateTransform Angle="{Binding IsHorizontal, Converter={StaticResource BoolToRotateConverter}}" />
-                            </FontIcon.RenderTransform>
-                        </FontIcon>
-                    </ToggleButton>
-                    <ToggleButton
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        CornerRadius="0 0 10 10"
-                        IsChecked="{Binding SwitchImages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding ElementName=ShowOriginalToggle, Path=IsChecked, Converter={StaticResource BoolNullableToBoolConverter}}"
-                        ToolTipService.ToolTip="Switch position">
-                        <FontIcon Glyph="&#xE8AB;" />
-                    </ToggleButton>
+                    <StackPanel
+                        Margin="0,0,0,0"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal"
+                        Spacing="5"
+                        Visibility="{Binding OperationTitle, Converter={StaticResource OperationTitleToVisibilityConverter}}">
+                        <ToggleButton
+                            x:Name="ShowOriginalToggle"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            CornerRadius="0 0 10 10"
+                            IsChecked="{Binding ShowOriginal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            ToolTipService.ToolTip="Show loaded image">
+                            <FontIcon Glyph="&#xE8B9;" />
+                        </ToggleButton>
+                        <ToggleButton
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            CornerRadius="0 0 10 10"
+                            IsChecked="{Binding IsHorizontal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=ShowOriginalToggle, Path=IsChecked, Converter={StaticResource BoolNullableToBoolConverter}}"
+                            ToolTipService.ToolTip="Change orientation">
+                            <FontIcon Glyph="&#xF57C;" RenderTransformOrigin="0.5,0.5">
+                                <FontIcon.RenderTransform>
+                                    <RotateTransform Angle="{Binding IsHorizontal, Converter={StaticResource BoolToRotateConverter}}" />
+                                </FontIcon.RenderTransform>
+                            </FontIcon>
+                        </ToggleButton>
+                        <ToggleButton
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            CornerRadius="0 0 10 10"
+                            IsChecked="{Binding SwitchImages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding ElementName=ShowOriginalToggle, Path=IsChecked, Converter={StaticResource BoolNullableToBoolConverter}}"
+                            ToolTipService.ToolTip="Switch position">
+                            <FontIcon Glyph="&#xE8AB;" />
+                        </ToggleButton>
+                    </StackPanel>
                 </StackPanel>
             </TitleBar.RightHeader>
         </TitleBar>
@@ -119,7 +132,7 @@
             </interactivity:Interaction.Behaviors>
         </Frame>
         <Grid
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             Grid.ColumnSpan="2"
             Canvas.ZIndex="100"
             Visibility="{Binding IsLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -129,6 +142,32 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing IsIndeterminate="True" />
                 <TextBlock Style="{ThemeResource TitleTextBlockStyle}">Loading</TextBlock>
+            </StackPanel>
+        </Grid>
+        <Grid
+            Grid.Row="2"
+            Padding="10"
+            Visibility="{Binding ShowServerConfiguration, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel Spacing="10">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <ToggleButton IsEnabled="{Binding IsLocalServerLoading, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:LocalServerBehavior
+                                IsLocalServerLoading="{Binding IsLocalServerLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsLocalServerRunning="{Binding IsLocalServerRunning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                OutputTextBox="{x:Bind OutputTextBox}" />
+                        </interactivity:Interaction.Behaviors>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="{Binding IsLocalServerRunning, Mode=OneWay, Converter={StaticResource IsLocalServerRunningToIconConverter}}" />
+                        </StackPanel>
+                    </ToggleButton>
+                </StackPanel>
+                <TextBox
+                    x:Name="OutputTextBox"
+                    Height="250"
+                    AcceptsReturn="True"
+                    IsReadOnly="True"
+                    TextWrapping="Wrap" />
             </StackPanel>
         </Grid>
     </Grid>

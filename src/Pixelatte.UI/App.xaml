@@ -14,10 +14,12 @@
             </ResourceDictionary.MergedDictionaries>
             <!--  Other app resources here  -->
             <converters:BoolToVisibilityConverter x:Name="BoolToVisibilityConverter" />
+            <converters:BoolNegationConverter x:Name="BoolNegationConverter" />
             <localconverters:OperationTitleToVisibilityConverter x:Name="OperationTitleToVisibilityConverter" />
             <localconverters:BoolToOrientationConverter x:Name="BoolToOrientationConverter" />
             <localconverters:BoolToRotateConverter x:Name="BoolToRotateConverter" />
             <localconverters:BoolNullableToBoolConverter x:Name="BoolNullableToBoolConverter" />
+            <localconverters:IsLocalServerRunningToIconConverter x:Name="IsLocalServerRunningToIconConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
