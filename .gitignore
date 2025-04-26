@@ -365,88 +365,88 @@ src/Pixelatte.UI/FodyWeavers.xsd
 src/Pixelatte.UI/onnx-models
 
 # Byte-compiled / optimized / DLL files
-src/backend/__pycache__/
-src/backend/*.py[cod]
-src/backend/*$py.class
+Pixelatte.UI/Backend/__pycache__/
+Pixelatte.UI/Backend/*.py[cod]
+Pixelatte.UI/Backend/*$py.class
 
 # C extensions
-src/backend/*.so
+Pixelatte.UI/Backend/*.so
 
 # Distribution / packaging
-src/backend/.Python
-src/backend/build/
-src/backend/develop-eggs/
-src/backend/dist/
-src/backend/downloads/
-src/backend/eggs/
-src/backend/.eggs/
-src/backend/lib/
-src/backend/lib64/
-src/backend/parts/
-src/backend/sdist/
-src/backend/var/
-src/backend/wheels/
-src/backend/share/python-wheels/
-src/backend/*.egg-info/
-src/backend/.installed.cfg
-src/backend/*.egg
-src/backend/MANIFEST
+Pixelatte.UI/Backend/.Python
+Pixelatte.UI/Backend/build/
+Pixelatte.UI/Backend/develop-eggs/
+Pixelatte.UI/Backend/dist/
+Pixelatte.UI/Backend/downloads/
+Pixelatte.UI/Backend/eggs/
+Pixelatte.UI/Backend/.eggs/
+Pixelatte.UI/Backend/lib/
+Pixelatte.UI/Backend/lib64/
+Pixelatte.UI/Backend/parts/
+Pixelatte.UI/Backend/sdist/
+Pixelatte.UI/Backend/var/
+Pixelatte.UI/Backend/wheels/
+Pixelatte.UI/Backend/share/python-wheels/
+Pixelatte.UI/Backend/*.egg-info/
+Pixelatte.UI/Backend/.installed.cfg
+Pixelatte.UI/Backend/*.egg
+Pixelatte.UI/Backend/MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
-src/backend/*.manifest
-src/backend/*.spec
+Pixelatte.UI/Backend/*.manifest
+Pixelatte.UI/Backend/*.spec
 
 # Installer logs
-src/backend/pip-log.txt
-src/backend/pip-delete-this-directory.txt
+Pixelatte.UI/Backend/pip-log.txt
+Pixelatte.UI/Backend/pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-src/backend/htmlcov/
-src/backend/.tox/
-src/backend/.nox/
-src/backend/.coverage
-src/backend/.coverage.*
-src/backend/.cache
-src/backend/nosetests.xml
-src/backend/coverage.xml
-src/backend/*.cover
-src/backend/*.py,cover
-src/backend/.hypothesis/
-src/backend/.pytest_cache/
-src/backend/cover/
+Pixelatte.UI/Backend/htmlcov/
+Pixelatte.UI/Backend/.tox/
+Pixelatte.UI/Backend/.nox/
+Pixelatte.UI/Backend/.coverage
+Pixelatte.UI/Backend/.coverage.*
+Pixelatte.UI/Backend/.cache
+Pixelatte.UI/Backend/nosetests.xml
+Pixelatte.UI/Backend/coverage.xml
+Pixelatte.UI/Backend/*.cover
+Pixelatte.UI/Backend/*.py,cover
+Pixelatte.UI/Backend/.hypothesis/
+Pixelatte.UI/Backend/.pytest_cache/
+Pixelatte.UI/Backend/cover/
 
 # Translations
-src/backend/*.mo
-src/backend/*.pot
+Pixelatte.UI/Backend/*.mo
+Pixelatte.UI/Backend/*.pot
 
 # Django stuff:
-src/backend/*.log
-src/backend/local_settings.py
-src/backend/db.sqlite3
-src/backend/db.sqlite3-journal
+Pixelatte.UI/Backend/*.log
+Pixelatte.UI/Backend/local_settings.py
+Pixelatte.UI/Backend/db.sqlite3
+Pixelatte.UI/Backend/db.sqlite3-journal
 
 # Flask stuff:
-src/backend/instance/
-src/backend/.webassets-cache
+Pixelatte.UI/Backend/instance/
+Pixelatte.UI/Backend/.webassets-cache
 
 # Scrapy stuff:
-src/backend/.scrapy
+Pixelatte.UI/Backend/.scrapy
 
 # Sphinx documentation
-src/backend/docs/_build/
+Pixelatte.UI/Backend/docs/_build/
 
 # PyBuilder
-src/backend/.pybuilder/
-src/backend/target/
+Pixelatte.UI/Backend/.pybuilder/
+Pixelatte.UI/Backend/target/
 
 # Jupyter Notebook
-src/backend/.ipynb_checkpoints
+Pixelatte.UI/Backend/.ipynb_checkpoints
 
 # IPython
-src/backend/profile_default/
-src/backend/ipython_config.py
+Pixelatte.UI/Backend/profile_default/
+Pixelatte.UI/Backend/ipython_config.py
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
@@ -479,52 +479,52 @@ src/backend/ipython_config.py
 #   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
 #   in version control.
 #   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
-src/backend/.pdm.toml
-src/backend/.pdm-python
-src/backend/.pdm-build/
+Pixelatte.UI/Backend/.pdm.toml
+Pixelatte.UI/Backend/.pdm-python
+Pixelatte.UI/Backend/.pdm-build/
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
-src/backend/__pypackages__/
+Pixelatte.UI/Backend/__pypackages__/
 
 # Celery stuff
-src/backend/celerybeat-schedule
-src/backend/celerybeat.pid
+Pixelatte.UI/Backend/celerybeat-schedule
+Pixelatte.UI/Backend/celerybeat.pid
 
 # SageMath parsed files
-src/backend/*.sage.py
+Pixelatte.UI/Backend/*.sage.py
 
 # Environments
-src/backend/.env
-src/backend/.venv
-src/backend/env/
-src/backend/venv/
-src/backend/ENV/
-src/backend/env.bak/
-src/backend/venv.bak/
+Pixelatte.UI/Backend/.env
+Pixelatte.UI/Backend/.venv
+Pixelatte.UI/Backend/env/
+Pixelatte.UI/Backend/venv/
+Pixelatte.UI/Backend/ENV/
+Pixelatte.UI/Backend/env.bak/
+Pixelatte.UI/Backend/venv.bak/
 
 # Spyder project settings
-src/backend/.spyderproject
-src/backend/.spyproject
+Pixelatte.UI/Backend/.spyderproject
+Pixelatte.UI/Backend/.spyproject
 
 # Rope project settings
-src/backend/.ropeproject
+Pixelatte.UI/Backend/.ropeproject
 
 # mkdocs documentation
-src/backend/site
+Pixelatte.UI/Backend/site
 
 # mypy
-src/backend/.mypy_cache/
-src/backend/.dmypy.json
-src/backend/dmypy.json
+Pixelatte.UI/Backend/.mypy_cache/
+Pixelatte.UI/Backend/.dmypy.json
+Pixelatte.UI/Backend/dmypy.json
 
 # Pyre type checker
-src/backend/.pyre/
+Pixelatte.UI/Backend/.pyre/
 
 # pytype static type analyzer
-src/backend/.pytype/
+Pixelatte.UI/Backend/.pytype/
 
 # Cython debug symbols
-src/backend/cython_debug/
+Pixelatte.UI/Backend/cython_debug/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
@@ -534,7 +534,7 @@ src/backend/cython_debug/
 #.idea/
 
 # Ruff stuff:
-src/backend/.ruff_cache/
+Pixelatte.UI/Backend/.ruff_cache/
 
 # PyPI configuration file
-src/backend/.pypirc
+Pixelatte.UI/Backend/.pypirc
