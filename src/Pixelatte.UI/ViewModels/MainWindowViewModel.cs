@@ -73,7 +73,7 @@ namespace Pixelatte.UI.ViewModels
                 new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "/Assets/grayscale.svg", OpenGrayscalePageCommand, typeof(GrayscaleView)),
                 new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "/Assets/basicPixelOperation.svg", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)),
                 new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "/Assets/saltAndPepperNoise.png", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)),
-                new PixelatteOperationItem("Convolution", "Apply a kernel (filter) to the image", "/Assets/saltAndPepperNoise.png", OpenConvolutionPageCommand, typeof(ConvolutionView)),
+                new PixelatteOperationItem("Convolution", "Apply a kernel (filter) to the image", "/Assets/saltAndPepperNoise.png", OpenConvolutionPageCommand, typeof(ConvolutionView)),//TODO: Update icon
             };
             Page = typeof(SelectImagePage);
             Tags = new ObservableCollection<string>();
