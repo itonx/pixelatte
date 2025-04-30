@@ -63,6 +63,31 @@ namespace Pixelatte.UI.Behaviors
 
         private async void AssociatedObject_Click(object sender, RoutedEventArgs e)
         {
+            await RunLocalServer();
+        }
+
+        private async void AssociatedObject_Loaded(object sender, RoutedEventArgs e)
+        {
+            AssociatedObject.Loaded -= AssociatedObject_Loaded;
+            App.m_window.Closed += M_window_Closed;
+            await RunLocalServer();
+        }
+
+        private void M_window_Closed(object sender, WindowEventArgs args)
+        {
+            StopLocalServer();
+        }
+
+        protected override void OnDetaching()
+        {
+            base.OnDetaching();
+            AssociatedObject.Loaded -= AssociatedObject_Loaded;
+            AssociatedObject.Click -= AssociatedObject_Click;
+            App.m_window.Closed -= M_window_Closed;
+        }
+
+        private async Task RunLocalServer()
+        {
             this.IsLocalServerLoading = true;
 
             if (this.IsLocalServerRunning)
@@ -73,18 +98,6 @@ namespace Pixelatte.UI.Behaviors
             {
                 await StartLocalServer();
             }
-
-        }
-
-        private void AssociatedObject_Loaded(object sender, RoutedEventArgs e)
-        {
-            AssociatedObject.Loaded -= AssociatedObject_Loaded;
-        }
-
-        protected override void OnDetaching()
-        {
-            base.OnDetaching();
-            AssociatedObject.Loaded -= AssociatedObject_Loaded;
         }
 
         public static async Task<bool> FolderExistsAsync(StorageFolder parentFolder, string folderName)

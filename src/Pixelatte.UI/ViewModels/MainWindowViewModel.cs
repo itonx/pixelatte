@@ -20,6 +20,8 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         public partial bool IsLoading { get; set; }
         [ObservableProperty]
+        public partial string IsLoadingText { get; set; }
+        [ObservableProperty]
         public partial string? OperationTitle { get; set; }
         [ObservableProperty]
         public partial Type Page { get; set; }
@@ -163,6 +165,12 @@ namespace Pixelatte.UI.ViewModels
         {
             Page = pageType;
             OperationTitle = PixelatteOperationList.FirstOrDefault(o => o.PageType == pageType)?.Title ?? string.Empty;
+        }
+
+        partial void OnIsLocalServerLoadingChanged(bool value)
+        {
+            IsLoading = value;
+            IsLoadingText = value ? "Starting local server..." : "Loading";
         }
     }
 }
