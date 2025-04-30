@@ -141,7 +141,7 @@
             </Grid.Background>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing IsIndeterminate="True" />
-                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding IsLoadingText, Mode=OneWay}"/>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding IsLoadingText, Mode=OneWay}" />
             </StackPanel>
         </Grid>
         <Grid
