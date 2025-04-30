@@ -18,56 +18,61 @@ namespace Pixelatte.UI.ViewModels
         private readonly PixelatteManager _pixelatteClient;
 
         [ObservableProperty]
-        private bool _isLoading;
+        public partial bool IsLoading { get; set; }
         [ObservableProperty]
-        private string _operationTitle;
+        public partial string OperationTitle { get; set; }
         [ObservableProperty]
-        private Type _page;
+        public partial Type Page { get; set; }
         [ObservableProperty]
-        private bool _showServerConfiguration;
+        public partial bool ShowServerConfiguration { get; set; }
         [ObservableProperty]
-        private bool _showOriginal;
+        public partial bool ShowOriginal { get; set; }
         [ObservableProperty]
-        private bool _isHorizontal;
+        public partial bool IsHorizontal { get; set; }
         [ObservableProperty]
-        private bool _switchImages;
+        public partial bool SwitchImages { get; set; }
         [ObservableProperty]
-        private bool _isLocalServerRunning;
+        public partial bool IsLocalServerRunning { get; set; }
         [ObservableProperty]
-        private bool _isLocalServerLoading;
+        public partial bool IsLocalServerLoading { get; set; }
         [ObservableProperty]
-        ObservableCollection<string> _tags = new ObservableCollection<string>();
+        public partial ObservableCollection<string> Tags { get; set; }
         [ObservableProperty]
-        private string _selectedImagePath;
+        public partial string SelectedImagePath { get; set; }
         [ObservableProperty]
-        private BitmapImage _selectedImage;
+        public partial BitmapImage? SelectedImage { get; set; }
         [ObservableProperty]
-        private ObservableCollection<PixelatteOperationItem> _pixelatteOperationList = new ObservableCollection<PixelatteOperationItem>();
+        public partial ObservableCollection<PixelatteOperationItem> PixelatteOperationList { get; set; }
 
         [ObservableProperty]
-        private BitmapImage _grayscaleImage;
+        public partial BitmapImage? GrayscaleImage { get; set; }
 
         [ObservableProperty]
-        private BitmapImage _basicPixelOperationImage;
+        public partial BitmapImage? BasicPixelOperationImage { get; set; }
         [ObservableProperty]
-        private string _selectedOperation;
+        public partial string SelectedOperation { get; set; }
         [ObservableProperty]
-        private int _operationValue;
+        public partial int OperationValue { get; set; }
 
         [ObservableProperty]
-        private BitmapImage _saltAndPepperNoiseImage;
+        public partial BitmapImage? SaltAndPepperNoiseImage { get; set; }
         [ObservableProperty]
-        private int _saltAndPepperNoiseLevel;
+        public partial int SaltAndPepperNoiseLevel { get; set; }
 
         public MainWindowViewModel()
         {
-            _pixelatteClient = new PixelatteManager("http://127.0.0.1:8000");
+            _pixelatteClient = new PixelatteManager(AppSettings.Configuration["server"] ?? string.Empty);
             SelectedOperation = "Add";
-            PixelatteOperationList.Add(new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "/Assets/grayscale.svg", OpenGrayscalePageCommand, typeof(GrayscaleView)));
-            PixelatteOperationList.Add(new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "/Assets/basicPixelOperation.svg", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)));
-            PixelatteOperationList.Add(new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "/Assets/saltAndPepperNoise.png", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)));
+            PixelatteOperationList = new ObservableCollection<PixelatteOperationItem>()
+            {
+                new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "/Assets/grayscale.svg", OpenGrayscalePageCommand, typeof(GrayscaleView)),
+                new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "/Assets/basicPixelOperation.svg", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)),
+                new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "/Assets/saltAndPepperNoise.png", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)),
+            };
             Page = typeof(SelectImagePage);
-            ShowServerConfiguration = true;
+            OperationTitle = string.Empty;
+            Tags = new ObservableCollection<string>();
+            SelectedImagePath = string.Empty;
         }
 
         [RelayCommand]
@@ -95,13 +100,13 @@ namespace Pixelatte.UI.ViewModels
 
         async partial void OnSelectedOperationChanged(string value)
         {
-            if (_basicPixelOperationImage == null) return;
+            if (BasicPixelOperationImage == null) return;
             await LoadBasicPixelOperationImage();
         }
 
         async partial void OnOperationValueChanged(int value)
         {
-            if (_basicPixelOperationImage == null) return;
+            if (BasicPixelOperationImage == null) return;
             await LoadBasicPixelOperationImage();
         }
 
