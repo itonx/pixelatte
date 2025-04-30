@@ -137,7 +137,7 @@ namespace Pixelatte.UI.ViewModels
         private async Task LoadSaltAndPepperNoiseImage()
         {
             IsLoading = true;
-            ImageDTO image = await _pixelatteClient.GetImageAsync($"saltandpeppernoise?img_path={SelectedImagePath}&noise_level={SaltAndPepperNoiseLevel}");
+            ImageDTO image = await _pixelatteClient.GetImageAsync($"convolution?img_path={SelectedImagePath}");
             SaltAndPepperNoiseImage = image.Image;
             IsLoading = false;
         }
@@ -145,7 +145,6 @@ namespace Pixelatte.UI.ViewModels
         private async Task LoadConvolutionImage()
         {
             IsLoading = true;
-            //TODO: Update with convolution parameters
             ImageDTO image = await _pixelatteClient.GetImageAsync($"saltandpeppernoise?img_path={SelectedImagePath}&noise_level={SaltAndPepperNoiseLevel}");
             ConvolutionImage = image.Image;
             IsLoading = false;

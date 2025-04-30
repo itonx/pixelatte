@@ -46,3 +46,10 @@ def apply(img_path, noise_level, img_type = 'color'):
     _, encoded = cv.imencode(file_extension, result)
     file_extension  = file_extension.replace('.', '')
     return Response(content=encoded.tobytes(), media_type=f'image/{file_extension}')
+
+@app.get('/convolution')
+def convolution(img_path, img_type = 'color'):
+    img, file_extension, width, height = read_img(img_path, img_type)
+    _, encoded = cv.imencode(file_extension, img) 
+    file_extension  = file_extension.replace('.', '')
+    return Response(content=encoded.tobytes(), media_type=f'image/{file_extension}')
