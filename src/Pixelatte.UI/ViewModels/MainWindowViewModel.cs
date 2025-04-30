@@ -20,7 +20,7 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         public partial bool IsLoading { get; set; }
         [ObservableProperty]
-        public partial string OperationTitle { get; set; }
+        public partial string? OperationTitle { get; set; }
         [ObservableProperty]
         public partial Type Page { get; set; }
         [ObservableProperty]
@@ -70,7 +70,6 @@ namespace Pixelatte.UI.ViewModels
                 new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "/Assets/saltAndPepperNoise.png", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)),
             };
             Page = typeof(SelectImagePage);
-            OperationTitle = string.Empty;
             Tags = new ObservableCollection<string>();
             SelectedImagePath = string.Empty;
         }
