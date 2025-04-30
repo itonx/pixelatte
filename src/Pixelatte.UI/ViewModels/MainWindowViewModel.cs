@@ -61,6 +61,9 @@ namespace Pixelatte.UI.ViewModels
         [ObservableProperty]
         public partial int SaltAndPepperNoiseLevel { get; set; }
 
+        [ObservableProperty]
+        public partial BitmapImage? ConvolutionImage { get; set; }
+
         public MainWindowViewModel()
         {
             _pixelatteClient = new PixelatteManager(AppSettings.Configuration["server"] ?? string.Empty);
@@ -70,6 +73,7 @@ namespace Pixelatte.UI.ViewModels
                 new PixelatteOperationItem("Grayscale", "Convert the image to grayscale", "/Assets/grayscale.svg", OpenGrayscalePageCommand, typeof(GrayscaleView)),
                 new PixelatteOperationItem("Pixel Operations", "Add, substract, multiply, or divide the value of each pixel", "/Assets/basicPixelOperation.svg", OpenBasicPixelOperationPageCommand, typeof(BasicPixelOperationView)),
                 new PixelatteOperationItem("Salt & Pepper Noise Gen", "Add salt and pepper noise to the image", "/Assets/saltAndPepperNoise.png", OpenSaltAndPepperNoisePageCommand, typeof(SaltAndPepperNoiseView)),
+                new PixelatteOperationItem("Convolution", "Apply a kernel (filter) to the image", "/Assets/saltAndPepperNoise.png", OpenConvolutionPageCommand, typeof(ConvolutionView)),
             };
             Page = typeof(SelectImagePage);
             Tags = new ObservableCollection<string>();
@@ -138,6 +142,15 @@ namespace Pixelatte.UI.ViewModels
             IsLoading = false;
         }
 
+        private async Task LoadConvolutionImage()
+        {
+            IsLoading = true;
+            //TODO: Update with convolution parameters
+            ImageDTO image = await _pixelatteClient.GetImageAsync($"saltandpeppernoise?img_path={SelectedImagePath}&noise_level={SaltAndPepperNoiseLevel}");
+            ConvolutionImage = image.Image;
+            IsLoading = false;
+        }
+
         [RelayCommand]
         private async Task OpenGrayscalePage()
         {
@@ -160,6 +173,13 @@ namespace Pixelatte.UI.ViewModels
         {
             LoadPage(typeof(SaltAndPepperNoiseView));
             await LoadSaltAndPepperNoiseImage();
+        }
+
+        [RelayCommand]
+        private async Task OpenConvolutionPage()
+        {
+            LoadPage(typeof(ConvolutionView));
+            await LoadConvolutionImage();
         }
 
         private void LoadPage(Type pageType)
