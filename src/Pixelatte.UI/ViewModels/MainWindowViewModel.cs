@@ -74,6 +74,7 @@ namespace Pixelatte.UI.ViewModels
             Page = typeof(SelectImagePage);
             Tags = new ObservableCollection<string>();
             SelectedImagePath = string.Empty;
+            IsLoadingText = "Loading";
         }
 
         [RelayCommand]
