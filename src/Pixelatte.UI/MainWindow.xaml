@@ -144,31 +144,11 @@
                 <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding IsLoadingText, Mode=OneWay}" />
             </StackPanel>
         </Grid>
-        <Grid
+        <local:ServerConsole
             Grid.Row="2"
             Padding="10"
-            Visibility="{Binding ShowServerConfiguration, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-            <StackPanel Spacing="10">
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <ToggleButton IsEnabled="{Binding IsLocalServerLoading, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}">
-                        <interactivity:Interaction.Behaviors>
-                            <behaviors:LocalServerBehavior
-                                IsLocalServerLoading="{Binding IsLocalServerLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                IsLocalServerRunning="{Binding IsLocalServerRunning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                OutputTextBox="{x:Bind OutputTextBox}" />
-                        </interactivity:Interaction.Behaviors>
-                        <StackPanel Orientation="Horizontal">
-                            <FontIcon Glyph="{Binding IsLocalServerRunning, Mode=OneWay, Converter={StaticResource IsLocalServerRunningToIconConverter}}" />
-                        </StackPanel>
-                    </ToggleButton>
-                </StackPanel>
-                <TextBox
-                    x:Name="OutputTextBox"
-                    Height="250"
-                    AcceptsReturn="True"
-                    IsReadOnly="True"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </Grid>
+            Visibility="{Binding ShowServerConfiguration, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" 
+            IsLocalServerLoading="{Binding IsLocalServerLoading, Mode=TwoWay}"
+            IsLocalServerRunning="{Binding IsLocalServerRunning, Mode=TwoWay}"/>
     </Grid>
 </Window>

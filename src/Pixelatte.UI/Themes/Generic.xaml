@@ -131,4 +131,30 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="local:ServerConsole">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ServerConsole">
+                    <Grid>
+                        <StackPanel Spacing="10">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <ToggleButton x:Name="ShowConsoleButton" IsEnabled="{Binding IsLocalServerLoading, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolNegationConverter}}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="{Binding IsLocalServerRunning, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource IsLocalServerRunningToIconConverter}}" />
+                                    </StackPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                            <TextBox
+                                x:Name="OutputTextBox"
+                                Height="250"
+                                AcceptsReturn="True"
+                                IsReadOnly="True"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
