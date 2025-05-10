@@ -7,12 +7,89 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Pixelatte.UI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Pixelatte.UI.Models"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="KernelTemplate" x:DataType="models:KernelModel">
+            <TextBox
+                Width="50"
+                Height="50"
+                FontSize="20"
+                HorizontalTextAlignment="Center"
+                IsEnabled="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+        </DataTemplate>
+    </Page.Resources>
 
     <controls:ImageVisualizer
         BaseImage="{Binding SelectedImage}"
         ImageResult="{Binding ConvolutionImage}"
         ShowBaseImage="{Binding ShowOriginal}"
         SwitchImages="{Binding SwitchImages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-        ViewerOrientation="{Binding IsHorizontal, Converter={StaticResource BoolToOrientationConverter}}" />
+        ViewerOrientation="{Binding IsHorizontal, Converter={StaticResource BoolToOrientationConverter}}">
+        <StackPanel HorizontalAlignment="Center" Spacing="5">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <ComboBox
+                    x:Name="FilterType"
+                    MinWidth="150"
+                    DisplayMemberPath="Name"
+                    Header="Filter type"
+                    ItemsSource="{Binding FilterTypes, Mode=OneTime}"
+                    SelectedItem="{Binding SelectedFilterType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox
+                    MinWidth="150"
+                    DisplayMemberPath="Name"
+                    Header="Filter operation"
+                    ItemsSource="{Binding OperationList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedFilterOperation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <NumberBox
+                    Width="150"
+                    HorizontalAlignment="Left"
+                    Header="Kernel size"
+                    Maximum="100"
+                    Minimum="3"
+                    SmallChange="2"
+                    SpinButtonPlacementMode="Inline"
+                    Visibility="{Binding SelectedFilterOperation.UseKernel, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
+                    Value="{Binding KernelSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    IsChecked="{Binding IsCustomKernel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding SelectedFilterOperation.UseKernel, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    Custom kernel
+                </CheckBox>
+            </StackPanel>
+            <GridView
+                HorizontalAlignment="Center"
+                Header="Kernel values"
+                IsItemClickEnabled="True"
+                ItemTemplate="{StaticResource KernelTemplate}"
+                ItemsSource="{Binding KernelValues, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectionMode="Extended"
+                Visibility="{Binding SelectedFilterOperation.UseKernel, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <GridView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource DefaultGridViewItemStyle}" TargetType="GridViewItem">
+                        <Setter Property="Margin" Value="0,5,5,5" />
+                    </Style>
+                </GridView.ItemContainerStyle>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid
+                            x:Name="MaxItemsWrapGrid"
+                            MaximumRowsOrColumns="{Binding KernelSize}"
+                            Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+            <Button
+                MinWidth="150"
+                HorizontalAlignment="Center"
+                Style="{ThemeResource AccentButtonStyle}">
+                Apply
+            </Button>
+        </StackPanel>
+    </controls:ImageVisualizer>
 </Page>

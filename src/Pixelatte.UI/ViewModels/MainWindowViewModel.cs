@@ -5,6 +5,7 @@ using Pixelatte.UI.Models;
 using Pixelatte.UI.Services;
 using Pixelatte.UI.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace Pixelatte.UI.ViewModels
         public partial Type Page { get; set; }
         [ObservableProperty]
         public partial bool ShowServerConfiguration { get; set; }
+
         [ObservableProperty]
         public partial bool ShowOriginal { get; set; }
         [ObservableProperty]
@@ -63,6 +65,20 @@ namespace Pixelatte.UI.ViewModels
 
         [ObservableProperty]
         public partial BitmapImage? ConvolutionImage { get; set; }
+        [ObservableProperty]
+        public partial int KernelSize { get; set; }
+        [ObservableProperty]
+        public partial ObservableCollection<KernelModel> KernelValues { get; set; }
+        [ObservableProperty]
+        public partial ObservableCollection<FilterType> FilterTypes { get; set; }
+        [ObservableProperty]
+        public partial FilterType SelectedFilterType { get; set; }
+        [ObservableProperty]
+        public partial ObservableCollection<FilterOperation> OperationList { get; set; }
+        [ObservableProperty]
+        public partial FilterOperation SelectedFilterOperation { get; set; }
+        [ObservableProperty]
+        public partial bool IsCustomKernel { get; set; }
 
         public MainWindowViewModel()
         {
@@ -79,6 +95,29 @@ namespace Pixelatte.UI.ViewModels
             Tags = new ObservableCollection<string>();
             SelectedImagePath = string.Empty;
             IsLoadingText = "Loading";
+            KernelValues = new ObservableCollection<KernelModel>();
+            FilterTypes = new ObservableCollection<FilterType>()
+            {
+                new FilterType("Low-Pass", new List<FilterOperation>()
+                {
+                    new FilterOperation("Gaussian"),
+                    new FilterOperation("Median"),
+                    new FilterOperation("Mean"),
+                    new FilterOperation("Mode"),
+                }),
+                new FilterType("High-Pass", new List<FilterOperation>()
+                {
+                    new FilterOperation("Laplacian", [0, 1, 0, 1, -4, 1, 0, 1, 0]),
+                    new FilterOperation("Prewitt", [1, 1, 1, 0, 0, 0, 1, 1, 1]), //Horizontal
+                    new FilterOperation("Sobel", [1, 2, 1, 0, 0, 0, -1, -2, -1]), //Horizontal
+                }),
+                new FilterType("Algorithms", new List<FilterOperation>()
+                {
+                    new FilterOperation("Canny"),//TODO: Review Canny filter
+                }),
+            };
+            SelectedFilterType = FilterTypes[0];
+            KernelSize = 3;
         }
 
         [RelayCommand]
@@ -101,6 +140,43 @@ namespace Pixelatte.UI.ViewModels
             finally
             {
                 IsLoading = false;
+            }
+        }
+
+        partial void OnIsCustomKernelChanged(bool value)
+        {
+            if (SelectedFilterOperation.UseKernel)
+            {
+                foreach (KernelModel kernelValue in KernelValues)
+                {
+                    kernelValue.IsEnabled = value;
+                }
+            }
+        }
+
+        partial void OnSelectedFilterTypeChanged(FilterType value)
+        {
+            OperationList = new ObservableCollection<FilterOperation>(value.Operations);
+            SelectedFilterOperation = OperationList[0];
+        }
+
+        partial void OnSelectedFilterOperationChanged(FilterOperation value)
+        {
+            if (value == null) return;
+            KernelSize = value.DefaultKernel != null ? (int)Math.Sqrt(value.DefaultKernel.Length) : KernelSize;
+            CreateKernel();
+            IsCustomKernel = false;
+        }
+
+        private void CreateKernel()
+        {
+            if (SelectedFilterOperation != null && SelectedFilterOperation.UseKernel && SelectedFilterOperation.DefaultKernel != null)
+            {
+                KernelValues.Clear();
+                for (int i = 0; i < SelectedFilterOperation.DefaultKernel.Length; i++)
+                {
+                    KernelValues.Add(new KernelModel(SelectedFilterOperation.DefaultKernel[i]));
+                }
             }
         }
 
